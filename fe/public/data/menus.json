@@ -1,0 +1,204 @@
+{
+  "juice": [
+    {
+      "name": "수박 쿨러 스무디",
+      "menuId": "",
+      "price": 3000,
+      "imgUrl": "assets/menuImg/Watermelon Cooler Smoothie.png",
+      "isBest": true,
+      "hasLarge": true,
+      "hasSmall": true,
+      "hasHot": true,
+      "hasIce": true
+    },
+    {
+      "name": "골드파인 트로피칼 스무디",
+      "menuId": "assets/menuImg/Gold Pineapple Tropical Smoothie.png",
+      "price": 3000,
+      "imgUrl": "xxx",
+      "isBest": true,
+      "hasLarge": true,
+      "hasSmall": true,
+      "hasHot": true,
+      "hasIce": true
+    },
+    {
+      "name": "토마토 통통 주스",
+      "menuId": "assets/MenuImg/Tomato Juice.png",
+      "price": 3000,
+      "imgUrl": "",
+      "isBest": true,
+      "hasLarge": true,
+      "hasSmall": true,
+      "hasHot": true,
+      "hasIce": true
+    },
+    {
+      "name": "피치 딸기 크러쉬",
+      "menuId": "",
+      "price": 3000,
+      "imgUrl": "assets/menuImg/Apple Beet Juice.png",
+      "isBest": true,
+      "hasLarge": true,
+      "hasSmall": true,
+      "hasHot": true,
+      "hasIce": true
+    },
+    {
+      "name": "애플망고 스무디",
+      "menuId": "",
+      "price": 3000,
+      "imgUrl": "assets/MenuImg/Apple mango Smoothie.png",
+      "isBest": true,
+      "hasLarge": true,
+      "hasSmall": true,
+      "hasHot": true,
+      "hasIce": true
+    },
+    {
+      "name": "딸기 스무디",
+      "menuId": "assets/menuImg/Strawberry Smoothie.png",
+      "price": 3000,
+      "imgUrl": "xxx",
+      "isBest": true,
+      "hasLarge": true,
+      "hasSmall": true,
+      "hasHot": true,
+      "hasIce": true
+    },
+    {
+      "name": "사과 비트 착즙 주스",
+      "menuId": "assets/menuImg/Apple Best Juice.png",
+      "price": 3000,
+      "imgUrl": "xxx",
+      "isBest": true,
+      "hasLarge": true,
+      "hasSmall": true,
+      "hasHot": true,
+      "hasIce": true
+    },
+    {
+      "name": "오렌지 당근 착즙 주스",
+      "menuId": "",
+      "price": 3000,
+      "imgUrl": "xxx",
+      "isBest": true,
+      "hasLarge": true,
+      "hasSmall": true,
+      "hasHot": true,
+      "hasIce": true
+    },
+    {
+      "name": "청포도케일 착즙 주스",
+      "menuId": "",
+      "price": 3000,
+      "imgUrl": "xxx",
+      "isBest": true,
+      "hasLarge": true,
+      "hasSmall": true,
+      "hasHot": true,
+      "hasIce": true
+    }
+  ],
+  "tea": [
+    {
+      "name": "유자 캐모마일",
+      "menuId": "",
+      "price": 3000,
+      "imgUrl": "xxx",
+      "isBest": false,
+      "hasLarge": true,
+      "hasSmall": true,
+      "hasHot": true,
+      "hasIce": true
+    },
+    {
+      "name": "복숭아 얼그레이",
+      "menuId": "",
+      "price": 3000,
+      "imgUrl": "xxx",
+      "isBest": false,
+      "hasLarge": true,
+      "hasSmall": true,
+      "hasHot": true,
+      "hasIce": true
+    },
+    {
+      "name": "홍자몽차",
+      "menuId": "",
+      "price": 3000,
+      "imgUrl": "xxx",
+      "isBest": false,
+      "hasLarge": true,
+      "hasSmall": true,
+      "hasHot": true,
+      "hasIce": true
+    },
+    {
+      "name": "제주 한라봉 감귤차",
+      "menuId": "",
+      "price": 3000,
+      "imgUrl": "xxx",
+      "isBest": false,
+      "hasLarge": true,
+      "hasSmall": true,
+      "hasHot": true,
+      "hasIce": true
+    },
+    {
+      "name": "고흥 유자차",
+      "menuId": "",
+      "price": 3000,
+      "imgUrl": "xxx",
+      "isBest": false,
+      "hasLarge": true,
+      "hasSmall": true,
+      "hasHot": true,
+      "hasIce": true
+    },
+    {
+      "name": "해남 녹차",
+      "menuId": "",
+      "price": 3000,
+      "imgUrl": "xxx",
+      "isBest": false,
+      "hasLarge": true,
+      "hasSmall": true,
+      "hasHot": true,
+      "hasIce": true
+    },
+    {
+      "name": "페퍼민트",
+      "menuId": "",
+      "price": 3000,
+      "imgUrl": "xxx",
+      "isBest": false,
+      "hasLarge": true,
+      "hasSmall": true,
+      "hasHot": true,
+      "hasIce": true
+    },
+    {
+      "name": "캐모마일",
+      "menuId": "",
+      "price": 3000,
+      "imgUrl": "xxx",
+      "isBest": false,
+      "hasLarge": true,
+      "hasSmall": true,
+      "hasHot": true,
+      "hasIce": true
+    },
+    {
+      "name": "얼그레이",
+      "menuId": "",
+      "price": 3000,
+      "imgUrl": "xxx",
+      "isBest": false,
+      "hasLarge": true,
+      "hasSmall": true,
+      "hasHot": true,
+      "hasIce": true
+    }
+  ]
+}
