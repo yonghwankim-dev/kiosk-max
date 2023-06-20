@@ -1,2 +1,13 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 50vh;
+}
+
 .App {
+  width: 40rem;
+  height: 50rem;
+  border: 1px solid black;
 }
