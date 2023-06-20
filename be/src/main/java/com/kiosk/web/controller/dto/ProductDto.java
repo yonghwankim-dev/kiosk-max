@@ -1,6 +1,7 @@
 package com.kiosk.web.controller.dto;
 
 import com.kiosk.domain.entity.Category;
+import com.kiosk.domain.entity.CategoryType;
 import com.kiosk.domain.entity.Product;
 import lombok.Getter;
 

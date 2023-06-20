@@ -4,6 +4,7 @@ import com.kiosk.domain.entity.Product;
 import com.kiosk.web.controller.dto.ProductDto;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 import org.springframework.stereotype.Repository;
@@ -27,8 +28,15 @@ public class MemoryProductRepository implements ProductRepository {
     }
 
     @Override
-    public Product findBy(final Long id) {
-        return store.get(id);
+    public Optional<Product> findBy(final Long id) {
+        return Optional.ofNullable(store.get(id));
+    }
+
+    @Override
+    public int deleteAll() {
+        int delSize = store.size();
+        store.clear();
+        return delSize;
     }
 
     public synchronized static Long nextId() {
