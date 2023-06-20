@@ -1,7 +1,6 @@
 package com.kiosk.domain.repository;
 
-import static com.kiosk.domain.entity.Category.*;
-import static org.junit.jupiter.api.Assertions.*;
+import static com.kiosk.domain.entity.CategoryType.*;
 
 import com.kiosk.domain.entity.Category;
 import com.kiosk.domain.entity.Product;
@@ -24,6 +23,9 @@ class MemoryProductRepositoryTest {
     @DisplayName("상품에 대한 정보가 주어지고 저장을 요청할때 상품이 저장된다")
     public void save() {
         // given
+        Category category = Category.builder()
+            .categoryType(COFFEE)
+            .build();
         Product product = Product.builder()
             .name("아메리카노")
             .price(4000L)
@@ -32,13 +34,13 @@ class MemoryProductRepositoryTest {
             .hasIce(true)
             .hasLarge(true)
             .hasSmall(true)
-            .category(COFFEE)
+            .category(category)
             .build();
         ProductDto productDto = new ProductDto(product);
         // when
         Long id = productRepository.save(productDto);
         // then
-        Product findProduct = productRepository.findBy(id);
+        Product findProduct = productRepository.findBy(id).orElseThrow();
         SoftAssertions.assertSoftly(softAssertions ->
             softAssertions.assertThat(findProduct.getId()).isEqualTo(id));
     }
