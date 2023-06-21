@@ -1,29 +1,47 @@
-import CategoryNavbar from 'components/CategoryNavbar';
-import { useEffect, useState } from 'react';
+import Main from 'components/Main';
+import CategoryNavbar from 'components/Navbar';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import { Categories, CategoryInfo } from './types';
 
 export default function MainPage() {
-  const [selectedCategory, setSelectedCategory] = useState('coffee');
-  const [menuData, setMenuData] = useState({});
+  const [menuData, setMenuData]: [CategoryInfo[], Dispatch<SetStateAction<[]>>] = useState([]);
+  const [selectedCategoryId, setSelectedCategoryId]: [string, Dispatch<SetStateAction<string>>] = useState('');
+  // const [orderList, setOrderList] = useState([]);
+
+  const formatMenuData = (menuData: CategoryInfo[]) => {
+    const formattedMenuData: Categories = {};
+    menuData.forEach(category => {
+      formattedMenuData[category.categoryId] = category;
+    });
+    return formattedMenuData;
+  };
 
   useEffect(() => {
-    fetch('data/menus.json')
+    fetch('data/categories.json')
       .then(res => res.json())
-      .then(data => setMenuData(data));
+      .then(data => {
+        setMenuData(data);
+        setSelectedCategoryId(data[0].categoryId);
+      });
   }, []);
 
-  const categoryNames = Object.keys(menuData);
-  const handleCategoryClick = (categoryName: string) => {
-    setSelectedCategory(categoryName);
+  const formattedMenuData = formatMenuData(menuData);
+  const categoryNavbarInfo = menuData.map((category: CategoryInfo) => {
+    return { categoryId: category.categoryId, categoryName: category.categoryName };
+  });
+  const currentMenus = selectedCategoryId && formattedMenuData[selectedCategoryId].menus;
+  const handleCategoryClick = (clickCategoryId: string) => {
+    setSelectedCategoryId(clickCategoryId);
   };
 
   return (
     <>
       <CategoryNavbar
+        selectedCategoryId={selectedCategoryId}
+        categories={categoryNavbarInfo}
         handleCategoryClick={handleCategoryClick}
-        selectedCategory={selectedCategory}
-        categoryNames={categoryNames}
       />
-      {/* <Main /> */}
+      {currentMenus && <Main menus={currentMenus} />}
     </>
   );
 }
