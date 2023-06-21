@@ -4,6 +4,7 @@ import com.kiosk.domain.entity.Category;
 import com.kiosk.domain.entity.CategoryType;
 import java.sql.PreparedStatement;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -22,9 +23,14 @@ public class JdbcCategoryRepository implements CategoryRepository {
 
     @Override
     public Long save(final Category category) {
-        template.update("INSERT INTO category(category_id, category_name) VALUES(?, ?)", category.getId(),
-            category.getCategoryType().name());
-        return category.getId();
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        template.update(con -> {
+            PreparedStatement ps = con.prepareStatement("INSERT INTO category(category_name) VALUES(?)",
+                new String[]{"category_id"});
+            ps.setString(1, category.getCategoryType().name());
+            return ps;
+        }, keyHolder);
+        return Objects.requireNonNull(keyHolder.getKey()).longValue();
     }
 
     @Override
@@ -52,11 +58,9 @@ public class JdbcCategoryRepository implements CategoryRepository {
     }
 
     private RowMapper<Category> categoryRowMapper() {
-        return (rs, rowNum) -> {
-            return Category.builder()
-                .id(rs.getLong("category_id"))
-                .categoryType(CategoryType.resolve(rs.getString("category_name")))
-                .build();
-        };
+        return (rs, rowNum) -> Category.builder()
+            .id(rs.getLong("category_id"))
+            .categoryType(CategoryType.resolve(rs.getString("category_name")))
+            .build();
     }
 }
