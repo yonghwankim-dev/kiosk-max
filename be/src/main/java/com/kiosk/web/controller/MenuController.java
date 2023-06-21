@@ -19,8 +19,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class MenuController {
 
-    private static final Logger logger = LoggerFactory.getLogger(MenuController.class);
-
     private final ProductService productService;
     private final CategoryService categoryService;
 

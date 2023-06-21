@@ -13,6 +13,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 
 @SpringBootTest
 class JdbcProductRepositoryTest {
@@ -27,22 +28,20 @@ class JdbcProductRepositoryTest {
     public void setup() {
         productRepository.deleteAll();
         categoryRepository.deleteAll();
-        categoryRepository.save(Category.builder().id(1L).categoryType(COFFEE).build());
-        categoryRepository.save(Category.builder().id(2L).categoryType(JUICE).build());
-        categoryRepository.save(Category.builder().id(3L).categoryType(TEA).build());
-        categoryRepository.save(Category.builder().id(4L).categoryType(LATTE).build());
-        categoryRepository.save(Category.builder().id(5L).categoryType(SPARKLING).build());
+        categoryRepository.save(Category.builder().categoryType(COFFEE).build());
+        categoryRepository.save(Category.builder().categoryType(JUICE).build());
+        categoryRepository.save(Category.builder().categoryType(TEA).build());
+        categoryRepository.save(Category.builder().categoryType(LATTE).build());
+        categoryRepository.save(Category.builder().categoryType(SPARKLING).build());
     }
 
     @Test
     @DisplayName("상품 정보가 주어지고 저장 요청을 했을때 저장소에 저장된다")
     public void save() {
         // given
-        Category category = Category.builder()
-            .categoryType(COFFEE)
-            .build();
+        Long category_id = categoryRepository.findBy(COFFEE.name()).orElseThrow().getId();
+        Category category = Category.builder().id(category_id).categoryType(COFFEE).build();
         Product product = Product.builder()
-            .id(1L)
             .name("아메리카노")
             .price(4000L)
             .imageUrl("path")

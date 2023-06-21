@@ -19,4 +19,8 @@ public class ProductService {
             .map(MenuDto::new)
             .collect(Collectors.toUnmodifiableList());
     }
+
+    public Long save(final MenuDto menuDto) {
+        return productRepository.save(menuDto);
+    }
 }
