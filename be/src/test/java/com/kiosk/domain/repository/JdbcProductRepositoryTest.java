@@ -1,12 +1,13 @@
 package com.kiosk.domain.repository;
 
+import static com.kiosk.domain.entity.CategoryType.*;
 import static com.kiosk.domain.entity.CategoryType.COFFEE;
 
 import com.kiosk.domain.entity.Category;
+import com.kiosk.domain.entity.CategoryType;
 import com.kiosk.domain.entity.Product;
-import com.kiosk.web.controller.dto.ProductDto;
+import com.kiosk.web.controller.dto.MenuDto;
 import org.assertj.core.api.SoftAssertions;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -27,6 +28,10 @@ class JdbcProductRepositoryTest {
         productRepository.deleteAll();
         categoryRepository.deleteAll();
         categoryRepository.save(Category.builder().id(1L).categoryType(COFFEE).build());
+        categoryRepository.save(Category.builder().id(2L).categoryType(JUICE).build());
+        categoryRepository.save(Category.builder().id(3L).categoryType(TEA).build());
+        categoryRepository.save(Category.builder().id(4L).categoryType(LATTE).build());
+        categoryRepository.save(Category.builder().id(5L).categoryType(SPARKLING).build());
     }
 
     @Test
@@ -40,7 +45,7 @@ class JdbcProductRepositoryTest {
             .id(1L)
             .name("아메리카노")
             .price(4000L)
-            .image("path")
+            .imageUrl("path")
             .isBest(false)
             .hasHot(true)
             .hasIce(true)
@@ -48,9 +53,9 @@ class JdbcProductRepositoryTest {
             .hasSmall(true)
             .category(category)
             .build();
-        ProductDto productDto = new ProductDto(product);
+        MenuDto menuDto = new MenuDto(product);
         // when
-        Long id = productRepository.save(productDto);
+        Long id = productRepository.save(menuDto);
         // then
         Product findProduct = productRepository.findBy(id).orElseThrow();
         SoftAssertions.assertSoftly(softAssertions -> {
