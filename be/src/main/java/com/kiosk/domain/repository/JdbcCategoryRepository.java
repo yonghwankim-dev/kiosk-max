@@ -3,6 +3,7 @@ package com.kiosk.domain.repository;
 import com.kiosk.domain.entity.Category;
 import com.kiosk.domain.entity.CategoryType;
 import java.sql.PreparedStatement;
+import java.util.List;
 import java.util.Optional;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -24,6 +25,11 @@ public class JdbcCategoryRepository implements CategoryRepository {
         template.update("INSERT INTO category(category_id, category_name) VALUES(?, ?)", category.getId(),
             category.getCategoryType().name());
         return category.getId();
+    }
+
+    @Override
+    public List<Category> findAll() {
+        return template.query("SELECT category_id, category_name FROM category", categoryRowMapper());
     }
 
     @Override
