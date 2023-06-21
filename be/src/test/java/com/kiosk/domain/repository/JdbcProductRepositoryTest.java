@@ -1,10 +1,12 @@
 package com.kiosk.domain.repository;
 
-import static com.kiosk.domain.entity.CategoryType.*;
 import static com.kiosk.domain.entity.CategoryType.COFFEE;
+import static com.kiosk.domain.entity.CategoryType.JUICE;
+import static com.kiosk.domain.entity.CategoryType.LATTE;
+import static com.kiosk.domain.entity.CategoryType.SPARKLING;
+import static com.kiosk.domain.entity.CategoryType.TEA;
 
 import com.kiosk.domain.entity.Category;
-import com.kiosk.domain.entity.CategoryType;
 import com.kiosk.domain.entity.Product;
 import com.kiosk.web.controller.dto.MenuDto;
 import org.assertj.core.api.SoftAssertions;
@@ -13,7 +15,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ActiveProfiles;
+import org.springframework.transaction.annotation.Transactional;
 
 @SpringBootTest
 class JdbcProductRepositoryTest {
@@ -35,6 +37,7 @@ class JdbcProductRepositoryTest {
         categoryRepository.save(Category.builder().categoryType(SPARKLING).build());
     }
 
+    @Transactional
     @Test
     @DisplayName("상품 정보가 주어지고 저장 요청을 했을때 저장소에 저장된다")
     public void save() {
