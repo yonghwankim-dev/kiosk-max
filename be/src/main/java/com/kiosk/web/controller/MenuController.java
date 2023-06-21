@@ -33,8 +33,9 @@ public class MenuController {
             List<MenuDto> menuByCategory = menus.stream()
                 .filter(menu -> menu.matchCategoryId(category))
                 .collect(Collectors.toUnmodifiableList());
-            responses.add(
-                new MenuCategoryResponse(category.getCategoryType().name(), category.getId(), menuByCategory));
+            responses.add(new MenuCategoryResponse(category.getCategoryType().name(),
+                category.getId(),
+                menuByCategory));
         }
         return responses;
     }
