@@ -1,7 +1,7 @@
 package com.kiosk.domain.repository;
 
 import com.kiosk.domain.entity.Product;
-import com.kiosk.web.controller.dto.ProductDto;
+import com.kiosk.web.controller.dto.MenuDto;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -15,10 +15,10 @@ public class MemoryProductRepository implements ProductRepository {
     private static final Map<Long, Product> store = new ConcurrentHashMap<>();
     private static Long sequence = 0L;
 
-    public Long save(final ProductDto productDto) {
+    public Long save(final MenuDto menuDto) {
         Long id = nextId();
-        productDto.setId(id);
-        store.put(id, productDto.toEntity());
+        menuDto.setMenuId(id);
+        store.put(id, menuDto.toEntity());
         return id;
     }
 

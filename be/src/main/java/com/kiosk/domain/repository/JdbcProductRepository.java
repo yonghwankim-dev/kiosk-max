@@ -1,17 +1,14 @@
 package com.kiosk.domain.repository;
 
 import com.kiosk.domain.entity.Category;
-import com.kiosk.domain.entity.CategoryType;
 import com.kiosk.domain.entity.Product;
-import com.kiosk.web.controller.dto.ProductDto;
+import com.kiosk.web.controller.dto.MenuDto;
 import java.sql.PreparedStatement;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.context.annotation.Primary;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
-import org.springframework.jdbc.support.GeneratedKeyHolder;
-import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 @Primary
@@ -27,18 +24,17 @@ public class JdbcProductRepository implements ProductRepository {
     }
 
     @Override
-    public Long save(final ProductDto dto) {
+    public Long save(final MenuDto dto) {
         template.update(connection -> {
-            Category category = categoryRepository.findBy(dto.getCategory().getCategoryType().name())
-                .orElseThrow();
+            Category category = categoryRepository.findBy(dto.getCategoryId()).orElseThrow();
             PreparedStatement ps = connection.prepareStatement(
                 "INSERT INTO product(product_id, product_name, product_price, product_image, product_is_best, product_has_hot, "
                     + "product_has_ice, product_has_large, product_has_small, category_id) "
                     + "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-            ps.setLong(1, dto.getId());
+            ps.setLong(1, dto.getMenuId());
             ps.setString(2, dto.getName());
             ps.setLong(3, dto.getPrice());
-            ps.setString(4, dto.getImage());
+            ps.setString(4, dto.getImgUrl());
             ps.setBoolean(5, dto.isBest());
             ps.setBoolean(6, dto.isHasHot());
             ps.setBoolean(7, dto.isHasIce());
@@ -47,7 +43,7 @@ public class JdbcProductRepository implements ProductRepository {
             ps.setLong(10, category.getId());
             return ps;
         });
-        return dto.getId();
+        return dto.getMenuId();
     }
 
     @Override
@@ -77,7 +73,7 @@ public class JdbcProductRepository implements ProductRepository {
                 .id(rs.getLong("product_id"))
                 .name(rs.getString("product_name"))
                 .price(rs.getLong("product_price"))
-                .image(rs.getString("product_image"))
+                .imageUrl(rs.getString("product_image"))
                 .isBest(rs.getBoolean("product_is_best"))
                 .hasHot(rs.getBoolean("product_has_hot"))
                 .hasIce(rs.getBoolean("product_has_ice"))
@@ -86,6 +82,5 @@ public class JdbcProductRepository implements ProductRepository {
                 .category(category)
                 .build();
         };
-
     }
 }
