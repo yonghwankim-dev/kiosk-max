@@ -1,7 +1,7 @@
 package com.kiosk.web.service;
 
-import com.kiosk.domain.repository.MemoryProductRepository;
-import com.kiosk.web.controller.dto.ProductDto;
+import com.kiosk.domain.repository.ProductRepository;
+import com.kiosk.web.controller.dto.MenuDto;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;
@@ -11,12 +11,12 @@ import org.springframework.stereotype.Service;
 @Service
 public class ProductService {
 
-    private final MemoryProductRepository productRepository;
+    private final ProductRepository productRepository;
 
-    public List<ProductDto> findAll() {
+    public List<MenuDto> findAll() {
         return productRepository.findAll()
             .stream()
-            .map(ProductDto::new)
+            .map(MenuDto::new)
             .collect(Collectors.toUnmodifiableList());
     }
 }
