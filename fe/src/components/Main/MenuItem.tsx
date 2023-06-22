@@ -5,22 +5,34 @@ interface MenuItemProps {
   menuImg: string;
   menuPrice: number;
   classNames?: string[];
+  openOrderModal?: () => void;
+  setSelectedMenu?: any;
   handleMenuItemClick?: (menuName: string) => void;
-  openOrderModal: () => void;
 }
 
 export default function MenuItem({
   menuName,
   menuImg,
   menuPrice,
-  handleMenuItemClick,
   openOrderModal,
+  setSelectedMenu,
+  handleMenuItemClick,
   classNames = [],
 }: MenuItemProps) {
+  const clickMenu = () => {
+    setSelectedMenu &&
+      setSelectedMenu({
+        name: menuName,
+        price: menuPrice,
+        imgUrl: menuImg,
+      });
+    openOrderModal && openOrderModal();
+  };
+
   return (
     <div
       onClick={() => {
-        openOrderModal();
+        clickMenu();
         handleMenuItemClick && handleMenuItemClick(menuName);
       }}
       className={styles.menuItem + ' ' + classNames.join(' ')}

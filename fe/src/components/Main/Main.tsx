@@ -2,7 +2,7 @@ import { MenuInfo } from 'pages/types';
 import styles from './Main.module.css';
 import MenuItem from './MenuItem';
 import OrderModal from 'components/Modal/OrderModal';
-import { Dispatch, SetStateAction, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 
 interface MainProps {
   menus: MenuInfo[];
@@ -10,6 +10,23 @@ interface MainProps {
 
 export default function Main({ menus }: MainProps) {
   const [isOrderModalOpen, setOrderModal]: [boolean, Dispatch<SetStateAction<boolean>>] = useState(false);
+  const [selectedMenu, setSelectedMenu]: [MenuInfo, Dispatch<MenuInfo>] = useState<MenuInfo>({
+    name: '',
+    menuId: '',
+    price: 0,
+    imgUrl: '',
+    isBest: true,
+    hasLarge: true,
+    hasSmall: true,
+    hasHot: true,
+    hasIce: true,
+  });
+
+  // const handleMenuClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+  //   if ((e.currentTarget as HTMLDivElement).tagName === 'DIV') {
+  //     openOrderModal();
+  //   }
+  // };
 
   const openOrderModal = () => {
     setOrderModal(true);
@@ -19,18 +36,6 @@ export default function Main({ menus }: MainProps) {
     setOrderModal(false);
   };
 
-  const menu = {
-    name: '프리미엄 블렌드 아메리카노',
-    menuId: '1',
-    price: 4900,
-    imgUrl: 'assets/MenuImg/Americano.png',
-    isBest: true,
-    hasLarge: true,
-    hasSmall: true,
-    hasHot: true,
-    hasIce: true,
-  };
-
   const menuItems = menus.map(menu => (
     <MenuItem
       key={menu.menuId}
@@ -38,6 +43,7 @@ export default function Main({ menus }: MainProps) {
       menuImg={menu.imgUrl}
       menuPrice={menu.price}
       openOrderModal={openOrderModal}
+      setSelectedMenu={setSelectedMenu}
     />
   ));
   return (
@@ -45,7 +51,7 @@ export default function Main({ menus }: MainProps) {
       {menuItems}
       {isOrderModalOpen && (
         <dialog open>
-          <OrderModal menu={menu} openOrderModal={openOrderModal} closeOrderModal={closeOrderModal} />
+          <OrderModal menu={selectedMenu} closeOrderModal={closeOrderModal} />
         </dialog>
       )}
     </div>
