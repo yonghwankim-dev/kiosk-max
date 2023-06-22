@@ -56,7 +56,7 @@ export default function Main({ handleAddOrder, menus }: MainProps) {
     <div className={styles.main}>
       {menuItems}
       {isOrderModalOpen && (
-        <dialog open>
+        <dialog open className={styles.OrderModal}>
           <OrderModal handleAddOrder={handleAddOrder} menu={selectedMenu} closeOrderModal={closeOrderModal} />
         </dialog>
       )}
