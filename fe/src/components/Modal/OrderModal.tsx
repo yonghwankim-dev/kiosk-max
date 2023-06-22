@@ -22,13 +22,12 @@ interface OrderDataInfo {
 }
 interface OrderModalProps {
   menu: MenuInfo;
-  openOrderModal: () => void;
   closeOrderModal: () => void;
   // orderList: [];
   // setOrderList: (data: OrderDataInfo) => void;
 }
 
-export default function OrderModal({ menu, openOrderModal, closeOrderModal }: OrderModalProps) {
+export default function OrderModal({ menu, closeOrderModal }: OrderModalProps) {
   const [selectedSize, setSelectedSize] = useState('');
   const [selectedTemp, setSelectedTemp] = useState('');
   const [amount, setAmount] = useState(1);
@@ -47,7 +46,7 @@ export default function OrderModal({ menu, openOrderModal, closeOrderModal }: Or
     <div className={styles.wrap}>
       <CloseButton closeOrderModal={closeOrderModal} />
       <div className={styles.contents}>
-        <MenuItem menuName={menu.name} menuImg={menu.imgUrl} menuPrice={menu.price} openOrderModal={openOrderModal} />
+        <MenuItem menuName={menu.name} menuImg={menu.imgUrl} menuPrice={menu.price} />
         <MenuOption
           hasLarge={menu.hasLarge}
           hasSmall={menu.hasSmall}
@@ -61,7 +60,7 @@ export default function OrderModal({ menu, openOrderModal, closeOrderModal }: Or
           setAmount={setAmount}
         />
       </div>
-      <AddButton sendOrderData={sendOrderData} />
+      <AddButton closeOrderModal={closeOrderModal} sendOrderData={sendOrderData} />
     </div>
   );
 }
@@ -191,12 +190,20 @@ function AmountCounter({ amount, setAmount }: AmountCounterProps) {
 }
 
 interface AddButtonProps {
+  closeOrderModal: () => void;
   sendOrderData: () => void;
 }
 
-function AddButton({ sendOrderData }: AddButtonProps) {
+function AddButton({ closeOrderModal, sendOrderData }: AddButtonProps) {
   return (
-    <button className={styles.addButton} type="button" onClick={sendOrderData}>
+    <button
+      className={styles.addButton}
+      type="button"
+      onClick={() => {
+        closeOrderModal();
+        sendOrderData();
+      }}
+    >
       담기
     </button>
   );
