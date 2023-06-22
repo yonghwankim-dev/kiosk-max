@@ -6,6 +6,7 @@ interface MenuItemProps {
   menuPrice: number;
   classNames?: string[];
   handleMenuItemClick?: (menuName: string) => void;
+  openOrderModal: () => void;
 }
 
 export default function MenuItem({
@@ -13,11 +14,15 @@ export default function MenuItem({
   menuImg,
   menuPrice,
   handleMenuItemClick,
+  openOrderModal,
   classNames = [],
 }: MenuItemProps) {
   return (
     <div
-      onClick={() => handleMenuItemClick && handleMenuItemClick(menuName)}
+      onClick={() => {
+        openOrderModal();
+        handleMenuItemClick && handleMenuItemClick(menuName);
+      }}
       className={styles.menuItem + ' ' + classNames.join(' ')}
     >
       <img src={menuImg} alt={menuName} />
