@@ -1,6 +1,7 @@
 import MenuItem from 'components/Main/MenuItem';
+import { MenuOrder } from 'pages/types';
+import { useState } from 'react';
 import styles from './OrderModal.module.css';
-import React, { useState } from 'react';
 
 interface MenuInfo {
   name: string;
@@ -23,30 +24,30 @@ interface OrderDataInfo {
 interface OrderModalProps {
   menu: MenuInfo;
   closeOrderModal: () => void;
+  handleAddOrder: (menuOrder: OrderDataInfo) => void;
   // orderList: [];
   // setOrderList: (data: OrderDataInfo) => void;
 }
 
-export default function OrderModal({ menu, closeOrderModal }: OrderModalProps) {
+export default function OrderModal({ menu, closeOrderModal, handleAddOrder }: OrderModalProps) {
   const [selectedSize, setSelectedSize] = useState('');
   const [selectedTemp, setSelectedTemp] = useState('');
   const [amount, setAmount] = useState(1);
-
-  const sendOrderData = () => {
+  const sendOrderData = (handleAddOrder: (menuOrder: MenuOrder) => void) => {
     const orderData = {
       menuId: menu.menuId,
       size: selectedSize,
       temperature: selectedTemp,
       amount: amount,
     };
-    // orderList.push(orderData);
+    handleAddOrder(orderData);
   };
 
   return (
     <div className={styles.wrap}>
       <CloseButton closeOrderModal={closeOrderModal} />
       <div className={styles.contents}>
-        <MenuItem menuName={menu.name} menuImg={menu.imgUrl} menuPrice={menu.price} />
+        <MenuItem menuId={menu.menuId} menuName={menu.name} menuImg={menu.imgUrl} menuPrice={menu.price} />
         <MenuOption
           hasLarge={menu.hasLarge}
           hasSmall={menu.hasSmall}
@@ -60,7 +61,7 @@ export default function OrderModal({ menu, closeOrderModal }: OrderModalProps) {
           setAmount={setAmount}
         />
       </div>
-      <AddButton closeOrderModal={closeOrderModal} sendOrderData={sendOrderData} />
+      <AddButton handleAddOrder={handleAddOrder} closeOrderModal={closeOrderModal} sendOrderData={sendOrderData} />
     </div>
   );
 }
@@ -114,22 +115,22 @@ interface SizeOptionProps {
 function SizeOption({ hasSmall, hasLarge, selectedSize, setSelectedSize }: SizeOptionProps) {
   return (
     <div className={hasSmall && hasLarge ? styles.dualButtonWrap : styles.singleButtonWrap}>
-      {hasSmall && (
+      {
         <button
           onClick={() => setSelectedSize('Small')}
           className={`${styles.optionButton} ${selectedSize === 'Small' ? `${styles.selected}` : ''}`}
         >
           Small
         </button>
-      )}
-      {hasLarge && (
+      }
+      {
         <button
           onClick={() => setSelectedSize('Large')}
           className={`${styles.optionButton} ${selectedSize === 'Large' ? `${styles.selected}` : ''}`}
         >
           Large
         </button>
-      )}
+      }
     </div>
   );
 }
@@ -144,22 +145,22 @@ interface TempOptionProps {
 function TempOption({ hasHot, hasIce, selectedTemp, setSelectedTemp }: TempOptionProps) {
   return (
     <div className={hasHot && hasIce ? styles.dualButtonWrap : styles.singleButtonWrap}>
-      {hasHot && (
+      {
         <button
           onClick={() => setSelectedTemp('Hot')}
           className={`${styles.optionButton} ${selectedTemp === 'Hot' ? `${styles.selected}` : ''}`}
         >
           Hot
         </button>
-      )}
-      {hasIce && (
+      }
+      {
         <button
           onClick={() => setSelectedTemp('Ice')}
           className={`${styles.optionButton} ${selectedTemp === 'Ice' ? `${styles.selected}` : ''}`}
         >
           Ice
         </button>
-      )}
+      }
     </div>
   );
 }
@@ -191,17 +192,18 @@ function AmountCounter({ amount, setAmount }: AmountCounterProps) {
 
 interface AddButtonProps {
   closeOrderModal: () => void;
-  sendOrderData: () => void;
+  sendOrderData: (handleAddOrder: (menuOrder: MenuOrder) => void) => void;
+  handleAddOrder: (menuOrder: MenuOrder) => void;
 }
 
-function AddButton({ closeOrderModal, sendOrderData }: AddButtonProps) {
+function AddButton({ closeOrderModal, sendOrderData, handleAddOrder }: AddButtonProps) {
   return (
     <button
       className={styles.addButton}
       type="button"
       onClick={() => {
         closeOrderModal();
-        sendOrderData();
+        sendOrderData(handleAddOrder);
       }}
     >
       담기

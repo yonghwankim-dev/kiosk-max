@@ -32,6 +32,7 @@ export default function OrderArea({ orderMenus }: OrderAreaProps) {
               <div className={styles.amount}>{amount}</div>
               <MenuItem
                 classNames={[styles.orderItem]}
+                key={menu.menuId}
                 menuName={menu.name}
                 menuImg={menu.imgUrl}
                 menuPrice={menu.price}

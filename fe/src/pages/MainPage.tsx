@@ -1,42 +1,18 @@
 import Main from 'components/Main';
 import OrderArea from 'components/Main/OrderArea';
 import CategoryNavbar from 'components/Navbar';
-import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import menuOrderReducer, { ActionMap, MenuOrderAction } from 'menuOrderReducer';
+import { Dispatch, SetStateAction, useEffect, useReducer, useState } from 'react';
 import { formatAllCategories, formatAllMenus, formatOrderList } from 'utils';
 import { CategoryInfo, MenuOrder } from './types';
-
-function menuOrderReducer() {}
 
 export default function MainPage() {
   const [menuData, setMenuData]: [CategoryInfo[], Dispatch<SetStateAction<[]>>] = useState([]);
   const [selectedCategoryId, setSelectedCategoryId]: [string, Dispatch<SetStateAction<string>>] = useState('');
-  // const [orderList, dispatch]: [MenuOrder[], DispatchWithoutAction] = useReducer(menuOrderReducer, []);
-  const orderList: MenuOrder[] = [
-    {
-      menuId: '1',
-      size: 'small',
-      temperature: 'hot',
-      amount: 2,
-    },
-    {
-      menuId: '1',
-      size: 'small',
-      temperature: 'cold',
-      amount: 1,
-    },
-    {
-      menuId: '1',
-      size: 'small',
-      temperature: 'cold',
-      amount: 1,
-    },
-    {
-      menuId: '18',
-      size: 'large',
-      temperature: 'cold',
-      amount: 3,
-    },
-  ];
+  const [orderList, dispatch]: [MenuOrder[], Dispatch<MenuOrderAction<keyof ActionMap>>] = useReducer(
+    menuOrderReducer,
+    []
+  );
 
   useEffect(() => {
     fetch('data/categories.json')
@@ -47,12 +23,13 @@ export default function MainPage() {
       });
   }, []);
 
+  const isOrderListEmpty = orderList.length === 0;
   const formattedMenuData = formatAllCategories(menuData);
   const categoryNavbarInfo = menuData.map((category: CategoryInfo) => {
     return { categoryId: category.categoryId, categoryName: category.categoryName };
   });
   const currentMenus = selectedCategoryId && formattedMenuData[selectedCategoryId].menus;
-  const formattedOrderList = formatOrderList(orderList);
+  const formattedOrderList = formatOrderList(orderList, (item, order) => item.menuId === order.menuId);
   const formattedMenus = formatAllMenus(menuData);
 
   const orderMenus = formattedOrderList.map(order => {
@@ -65,7 +42,11 @@ export default function MainPage() {
   const handleCategoryClick = (clickCategoryId: string) => {
     setSelectedCategoryId(clickCategoryId);
   };
+  const handleAddOrder = (menuOrder: MenuOrder) => {
+    dispatch({ type: 'ADD_ORDER', payload: menuOrder });
+  };
 
+  console.log(orderList);
   return (
     <>
       <CategoryNavbar
@@ -73,8 +54,8 @@ export default function MainPage() {
         categories={categoryNavbarInfo}
         handleCategoryClick={handleCategoryClick}
       />
-      {currentMenus && <Main menus={currentMenus} />}
-      {Object.keys(menuData).length && orderList.length && <OrderArea orderMenus={orderMenus} />}
+      {currentMenus && <Main handleAddOrder={handleAddOrder} menus={currentMenus} />}
+      {Object.keys(menuData).length && !isOrderListEmpty && <OrderArea orderMenus={orderMenus} />}
     </>
   );
 }

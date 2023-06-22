@@ -20,19 +20,53 @@ export const formatAllCategories = (menuData: CategoryInfo[]) => {
   return formattedMenuData;
 };
 
-export function formatOrderList(orderList: MenuOrder[]) {
+export function formatOrderList(orderList: MenuOrder[], findCondition: (item: MenuOrder, order: MenuOrder) => boolean) {
   const formattedOrderList: MenuOrder[] = [];
+
   orderList.forEach(order => {
-    const { menuId, size, temperature, amount } = order;
-    const orderItem = formattedOrderList.find(
-      item => item.menuId === menuId && item.size === size && item.temperature === temperature
-    );
+    const { amount } = order;
+    const orderItem = formattedOrderList.find(item => findCondition(item, order));
+
     if (orderItem) {
       orderItem.amount += amount;
     } else {
-      formattedOrderList.push({ menuId, size, temperature, amount });
+      formattedOrderList.push(order);
     }
   });
 
   return formattedOrderList;
 }
+
+// export function formatOrderList(orderList: MenuOrder[]) {
+//   const formattedOrderList: MenuOrder[] = [];
+//   orderList.forEach(order => {
+//     const { menuId, size, temperature, amount } = order;
+//     const orderItem = formattedOrderList.find(
+//       item => item.menuId === menuId && item.size === size && item.temperature === temperature
+//     );
+//     if (orderItem) {
+//       orderItem.amount += amount;
+//     } else {
+//       formattedOrderList.push({ menuId, size, temperature, amount });
+//     }
+//   });
+
+//   return formattedOrderList;
+// }
+
+// export function formatOrderAreaList(orderList: MenuOrder[]) {
+//   const formattedOrderList: MenuOrder[] = [];
+//   orderList.forEach(order => {
+//     const { menuId, amount } = order;
+//     const orderItem = formattedOrderList.find(
+//       item => item.menuId === menuId
+//     );
+//     if (orderItem) {
+//       orderItem.amount += amount;
+//     } else {
+//       formattedOrderList.push(order);
+//     }
+//   });
+
+//   return formattedOrderList;
+// }

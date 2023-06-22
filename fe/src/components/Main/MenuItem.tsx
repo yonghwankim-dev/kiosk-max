@@ -1,6 +1,7 @@
 import styles from './Main.module.css';
 
 interface MenuItemProps {
+  menuId: string;
   menuName: string;
   menuImg: string;
   menuPrice: number;
@@ -11,6 +12,7 @@ interface MenuItemProps {
 }
 
 export default function MenuItem({
+  menuId,
   menuName,
   menuImg,
   menuPrice,
@@ -23,6 +25,7 @@ export default function MenuItem({
     setSelectedMenu &&
       setSelectedMenu({
         name: menuName,
+        menuId: menuId,
         price: menuPrice,
         imgUrl: menuImg,
       });

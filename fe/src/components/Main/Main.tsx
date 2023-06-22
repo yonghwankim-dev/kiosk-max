@@ -1,14 +1,15 @@
-import { MenuInfo } from 'pages/types';
+import OrderModal from 'components/Modal/OrderModal';
+import { MenuInfo, MenuOrder } from 'pages/types';
+import { Dispatch, SetStateAction, useState } from 'react';
 import styles from './Main.module.css';
 import MenuItem from './MenuItem';
-import OrderModal from 'components/Modal/OrderModal';
-import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 
 interface MainProps {
+  handleAddOrder: (menuOrder: MenuOrder) => void;
   menus: MenuInfo[];
 }
 
-export default function Main({ menus }: MainProps) {
+export default function Main({ handleAddOrder, menus }: MainProps) {
   const [isOrderModalOpen, setOrderModal]: [boolean, Dispatch<SetStateAction<boolean>>] = useState(false);
   const [selectedMenu, setSelectedMenu]: [MenuInfo, Dispatch<MenuInfo>] = useState<MenuInfo>({
     name: '',
@@ -39,6 +40,7 @@ export default function Main({ menus }: MainProps) {
   const menuItems = menus.map(menu => (
     <MenuItem
       key={menu.menuId}
+      menuId={menu.menuId}
       menuName={menu.name}
       menuImg={menu.imgUrl}
       menuPrice={menu.price}
@@ -51,7 +53,7 @@ export default function Main({ menus }: MainProps) {
       {menuItems}
       {isOrderModalOpen && (
         <dialog open>
-          <OrderModal menu={selectedMenu} closeOrderModal={closeOrderModal} />
+          <OrderModal handleAddOrder={handleAddOrder} menu={selectedMenu} closeOrderModal={closeOrderModal} />
         </dialog>
       )}
     </div>
