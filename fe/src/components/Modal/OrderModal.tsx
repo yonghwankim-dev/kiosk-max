@@ -5,7 +5,7 @@ import styles from './OrderModal.module.css';
 
 interface MenuInfo {
   name: string;
-  menuId: string;
+  menuId: number;
   price: number;
   imgUrl: string;
   isBest: boolean;
@@ -16,7 +16,7 @@ interface MenuInfo {
 }
 
 interface OrderDataInfo {
-  menuId: string;
+  menuId: number;
   size: string;
   temperature: string;
   amount: number;
@@ -47,7 +47,16 @@ export default function OrderModal({ menu, closeOrderModal, handleAddOrder }: Or
     <div className={styles.wrap}>
       <CloseButton closeOrderModal={closeOrderModal} />
       <div className={styles.contents}>
-        <MenuItem menuId={menu.menuId} menuName={menu.name} menuImg={menu.imgUrl} menuPrice={menu.price} />
+        <MenuItem
+          menuId={menu.menuId}
+          menuName={menu.name}
+          menuImg={menu.imgUrl}
+          menuPrice={menu.price}
+          hasHot={menu.hasHot}
+          hasIce={menu.hasIce}
+          hasLarge={menu.hasLarge}
+          hasSmall={menu.hasSmall}
+        />
         <MenuOption
           hasLarge={menu.hasLarge}
           hasSmall={menu.hasSmall}
@@ -61,7 +70,13 @@ export default function OrderModal({ menu, closeOrderModal, handleAddOrder }: Or
           setAmount={setAmount}
         />
       </div>
-      <AddButton handleAddOrder={handleAddOrder} closeOrderModal={closeOrderModal} sendOrderData={sendOrderData} />
+      <AddButton
+        handleAddOrder={handleAddOrder}
+        closeOrderModal={closeOrderModal}
+        sendOrderData={sendOrderData}
+        selectedSize={selectedSize}
+        selectedTemp={selectedTemp}
+      />
     </div>
   );
 }
@@ -115,22 +130,22 @@ interface SizeOptionProps {
 function SizeOption({ hasSmall, hasLarge, selectedSize, setSelectedSize }: SizeOptionProps) {
   return (
     <div className={hasSmall && hasLarge ? styles.dualButtonWrap : styles.singleButtonWrap}>
-      {
+      {hasSmall && (
         <button
           onClick={() => setSelectedSize('Small')}
           className={`${styles.optionButton} ${selectedSize === 'Small' ? `${styles.selected}` : ''}`}
         >
           Small
         </button>
-      }
-      {
+      )}
+      {hasLarge && (
         <button
           onClick={() => setSelectedSize('Large')}
           className={`${styles.optionButton} ${selectedSize === 'Large' ? `${styles.selected}` : ''}`}
         >
           Large
         </button>
-      }
+      )}
     </div>
   );
 }
@@ -145,22 +160,22 @@ interface TempOptionProps {
 function TempOption({ hasHot, hasIce, selectedTemp, setSelectedTemp }: TempOptionProps) {
   return (
     <div className={hasHot && hasIce ? styles.dualButtonWrap : styles.singleButtonWrap}>
-      {
+      {hasHot && (
         <button
           onClick={() => setSelectedTemp('Hot')}
           className={`${styles.optionButton} ${selectedTemp === 'Hot' ? `${styles.selected}` : ''}`}
         >
           Hot
         </button>
-      }
-      {
+      )}
+      {hasIce && (
         <button
           onClick={() => setSelectedTemp('Ice')}
           className={`${styles.optionButton} ${selectedTemp === 'Ice' ? `${styles.selected}` : ''}`}
         >
           Ice
         </button>
-      }
+      )}
     </div>
   );
 }
@@ -194,16 +209,20 @@ interface AddButtonProps {
   closeOrderModal: () => void;
   sendOrderData: (handleAddOrder: (menuOrder: MenuOrder) => void) => void;
   handleAddOrder: (menuOrder: MenuOrder) => void;
+  selectedSize: string;
+  selectedTemp: string;
 }
 
-function AddButton({ closeOrderModal, sendOrderData, handleAddOrder }: AddButtonProps) {
+function AddButton({ closeOrderModal, sendOrderData, handleAddOrder, selectedSize, selectedTemp }: AddButtonProps) {
   return (
     <button
       className={styles.addButton}
       type="button"
       onClick={() => {
-        closeOrderModal();
-        sendOrderData(handleAddOrder);
+        if (selectedSize !== '' && selectedTemp !== '') {
+          closeOrderModal();
+          sendOrderData(handleAddOrder);
+        }
       }}
     >
       담기
