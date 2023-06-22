@@ -22,12 +22,13 @@ interface OrderDataInfo {
 }
 interface OrderModalProps {
   menu: MenuInfo;
+  openOrderModal: () => void;
   closeOrderModal: () => void;
-  orderList: [];
-  setOrderList: (data: OrderDataInfo) => void;
+  // orderList: [];
+  // setOrderList: (data: OrderDataInfo) => void;
 }
 
-export default function OrderModal({ menu, closeOrderModal, orderList, setOrderList }: OrderModalProps) {
+export default function OrderModal({ menu, openOrderModal, closeOrderModal }: OrderModalProps) {
   const [selectedSize, setSelectedSize] = useState('');
   const [selectedTemp, setSelectedTemp] = useState('');
   const [amount, setAmount] = useState(1);
@@ -46,7 +47,7 @@ export default function OrderModal({ menu, closeOrderModal, orderList, setOrderL
     <div className={styles.wrap}>
       <CloseButton closeOrderModal={closeOrderModal} />
       <div className={styles.contents}>
-        {/* <MenuItem menuName={menu.name} menuImg={menu.imgUrl} menuPrice={menu.price} /> */}
+        <MenuItem menuName={menu.name} menuImg={menu.imgUrl} menuPrice={menu.price} openOrderModal={openOrderModal} />
         <MenuOption
           hasLarge={menu.hasLarge}
           hasSmall={menu.hasSmall}
