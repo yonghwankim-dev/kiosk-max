@@ -1,10 +1,14 @@
 import styles from './Main.module.css';
 
 interface MenuItemProps {
-  menuId: string;
+  menuId: number;
   menuName: string;
   menuImg: string;
   menuPrice: number;
+  hasLarge: boolean;
+  hasSmall: boolean;
+  hasHot: boolean;
+  hasIce: boolean;
   classNames?: string[];
   openOrderModal?: () => void;
   setSelectedMenu?: any;
@@ -16,6 +20,10 @@ export default function MenuItem({
   menuName,
   menuImg,
   menuPrice,
+  hasLarge,
+  hasSmall,
+  hasHot,
+  hasIce,
   openOrderModal,
   setSelectedMenu,
   handleMenuItemClick,
@@ -28,6 +36,10 @@ export default function MenuItem({
         menuId: menuId,
         price: menuPrice,
         imgUrl: menuImg,
+        hasLarge: hasLarge,
+        hasSmall: hasSmall,
+        hasHot: hasHot,
+        hasIce: hasIce,
       });
     openOrderModal && openOrderModal();
   };

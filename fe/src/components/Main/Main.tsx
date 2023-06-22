@@ -13,7 +13,7 @@ export default function Main({ handleAddOrder, menus }: MainProps) {
   const [isOrderModalOpen, setOrderModal]: [boolean, Dispatch<SetStateAction<boolean>>] = useState(false);
   const [selectedMenu, setSelectedMenu]: [MenuInfo, Dispatch<MenuInfo>] = useState<MenuInfo>({
     name: '',
-    menuId: '',
+    menuId: 0,
     price: 0,
     imgUrl: '',
     isBest: true,
@@ -44,6 +44,10 @@ export default function Main({ handleAddOrder, menus }: MainProps) {
       menuName={menu.name}
       menuImg={menu.imgUrl}
       menuPrice={menu.price}
+      hasLarge={menu.hasLarge}
+      hasSmall={menu.hasSmall}
+      hasHot={menu.hasHot}
+      hasIce={menu.hasIce}
       openOrderModal={openOrderModal}
       setSelectedMenu={setSelectedMenu}
     />
