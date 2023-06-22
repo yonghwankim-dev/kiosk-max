@@ -35,6 +35,7 @@
 }
 
 .orderArea {
+  display: flex;
   outline: 2px solid var(--color-primary);
 }
 
@@ -61,14 +62,13 @@
   white-space: wrap;
 }
 
-.itemWrapper {
-  position: relative;
+.orderItem:hover {
+  cursor: default;
+  transform: none;
 }
 
-.itemWrapper:hover > .amount {
-  cursor: pointer;
-  transform: scale(1.05);
-  transition: all 0.3s ease-in-out;
+.itemWrapper {
+  position: relative;
 }
 
 .amount {
@@ -86,4 +86,69 @@
   z-index: 1;
   top: -0.5rem;
   left: -0.5rem;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: calc(100% - 40%);
+  gap: 1rem;
+}
+
+.menuCancelButton {
+  font-weight: var(--font-weight-bold);
+  color: var(--color-white);
+  width: 1.5rem;
+  height: 1.5rem;
+  padding: 0.5rem;
+  background-color: var(--color-black);
+  border-radius: 50%;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+  top: -0.5rem;
+  right: -0.5rem;
+}
+
+.allCancelButton {
+  padding: 1rem 5rem;
+  border-radius: 0.5rem;
+  background-color: var(--color-black);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5rem;
+  color: var(--color-white);
+  font-weight: var(--font-weight-bold);
+  cursor: pointer;
+}
+
+.orderButton {
+  padding: 1rem 5rem;
+  background-color: var(--color-primary);
+  color: var(--color-white);
+  font-family: var(--font-family);
+  font-weight: var(--font-weight-bold);
+  font-size: 1.5rem;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+}
+
+.timer {
+  font-family: var(--font-family);
+  font-weight: var(--font-weight-bold);
+  font-size: 1rem;
+  color: var(--color-primary);
+  margin: 1rem;
+}
+
+.menuCancelButton:hover {
+  cursor: pointer;
+  transform: scale(1.1);
+  transition: all 0.3s ease-in-out;
 }
