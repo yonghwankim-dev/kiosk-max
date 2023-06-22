@@ -1,7 +1,7 @@
 
 ![](https://img.shields.io/badge/Last_Upadate-2023--06--22-blue)
 ![](https://img.shields.io/badge/Sprint-1-green)
-[![Build Status](https://img.shields.io/endpoint.svg?url=https%3A%2F%2Factions-badge.atrox.dev%2F%2Fcodesquad-gwanaksan%2Fkiosk-max%2Fgoto%2Fbadge%3Fref%3Ddev&style=flat)](https://actions-badge.atrox.dev//codesquad-gwanaksan/kiosk-max/goto/goto?ref=dev)
+[![Build Status](https://img.shields.io/endpoint.svg?url=https%3A%2F%2Factions-badge.atrox.dev%2F%2Fcodesquad-gwanaksan%2Fkiosk-max%2Fbadge%3Fref%3Ddev&style=flat)](https://actions-badge.atrox.dev//codesquad-gwanaksan/kiosk-max/goto?ref=dev)
 
 # ☕️ 카페 키오스크 프로젝트
 - 2023 코드스쿼드 마스터즈 Max에서 진행한 "카페 키오스크"를 구현하는 그룹 프로젝트 
@@ -30,6 +30,7 @@
 ![](https://img.shields.io/badge/SpringBoot-6DB33F?style=flat&logo=SpringBoot&logoColor=white)
 ![](https://img.shields.io/badge/MySQL-4479A1?style=flat&logo=MySQL&logoColor=white)
 ![](https://img.shields.io/badge/Amazon_AWS-232F3E?style=flat&logo=amazonaws)
+![](https://img.shields.io/badge/GitActions-2088FF?style=flat&logo=githubactions&logoColor=white)
 
 - Java: `JDK 11`
 - SpringBoot: `ver. 2.7.12`
