@@ -23,12 +23,6 @@ export default function Main({ handleAddOrder, menus }: MainProps) {
     hasIce: true,
   });
 
-  // const handleMenuClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-  //   if ((e.currentTarget as HTMLDivElement).tagName === 'DIV') {
-  //     openOrderModal();
-  //   }
-  // };
-
   const openOrderModal = () => {
     setOrderModal(true);
   };

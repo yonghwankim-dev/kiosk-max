@@ -5,10 +5,10 @@ interface MenuItemProps {
   menuName: string;
   menuImg: string;
   menuPrice: number;
-  hasLarge: boolean;
-  hasSmall: boolean;
-  hasHot: boolean;
-  hasIce: boolean;
+  hasLarge?: boolean;
+  hasSmall?: boolean;
+  hasHot?: boolean;
+  hasIce?: boolean;
   classNames?: string[];
   openOrderModal?: () => void;
   setSelectedMenu?: any;

@@ -1,16 +1,30 @@
 import { MenuOrder } from 'pages/types';
 
-export interface ActionMap {
-  ADD_ORDER: MenuOrder;
-  REMOVE_ORDER: MenuOrder;
-}
+export type ActionMap = {
+  ADD_ORDER: { newOrder: MenuOrder };
+  REMOVE_ORDER: { menuId: number };
+  RESET: {};
+};
 
-export type MenuOrderAction<T extends keyof ActionMap> = { type: T } & { payload: ActionMap[T] };
+export type MenuOrderAction = {
+  [Key in keyof ActionMap]: {
+    type: Key;
+    payload?: ActionMap[Key];
+  };
+}[keyof ActionMap];
 
-export default function menuOrderReducer(initialOrders: MenuOrder[], action: MenuOrderAction<keyof ActionMap>) {
+export default function menuOrderReducer(initialOrders: MenuOrder[], action: MenuOrderAction): MenuOrder[] {
   switch (action.type) {
-    case 'ADD_ORDER':
-      return [...initialOrders, action.payload];
-    case 'REMOVE_ORDER':
+    case 'ADD_ORDER': {
+      return [...initialOrders, action.payload!.newOrder];
+    }
+    case 'REMOVE_ORDER': {
+      return initialOrders.filter(order => order.menuId !== action.payload!.menuId);
+    }
+    case 'RESET': {
+      return [];
+    }
+    default:
+      return initialOrders;
   }
 }

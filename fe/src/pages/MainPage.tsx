@@ -1,7 +1,7 @@
 import Main from 'components/Main';
 import OrderArea from 'components/Main/OrderArea';
 import CategoryNavbar from 'components/Navbar';
-import menuOrderReducer, { ActionMap, MenuOrderAction } from 'menuOrderReducer';
+import menuOrderReducer, { MenuOrderAction } from 'menuOrderReducer';
 import { Dispatch, SetStateAction, useEffect, useReducer, useState } from 'react';
 import { formatAllCategories, formatAllMenus, formatOrderList } from 'utils';
 import { CategoryInfo, MenuOrder } from './types';
@@ -9,10 +9,7 @@ import { CategoryInfo, MenuOrder } from './types';
 export default function MainPage() {
   const [menuData, setMenuData]: [CategoryInfo[], Dispatch<SetStateAction<[]>>] = useState([]);
   const [selectedCategoryId, setSelectedCategoryId]: [string, Dispatch<SetStateAction<string>>] = useState('');
-  const [orderList, dispatch]: [MenuOrder[], Dispatch<MenuOrderAction<keyof ActionMap>>] = useReducer(
-    menuOrderReducer,
-    []
-  );
+  const [orderList, dispatch]: [MenuOrder[], Dispatch<MenuOrderAction>] = useReducer(menuOrderReducer, []);
 
   useEffect(() => {
     fetch('data/categories.json')
@@ -23,6 +20,7 @@ export default function MainPage() {
       });
   }, []);
 
+  const isMenuDataEmpty = Object.keys(menuData).length === 0;
   const isOrderListEmpty = orderList.length === 0;
   const formattedMenuData = formatAllCategories(menuData);
   const categoryNavbarInfo = menuData.map((category: CategoryInfo) => {
@@ -43,10 +41,14 @@ export default function MainPage() {
     setSelectedCategoryId(clickCategoryId);
   };
   const handleAddOrder = (menuOrder: MenuOrder) => {
-    dispatch({ type: 'ADD_ORDER', payload: menuOrder });
+    dispatch({ type: 'ADD_ORDER', payload: { newOrder: menuOrder } });
+  };
+  const handleRemoveOrder = (menuId: number) => {
+    dispatch({ type: 'REMOVE_ORDER', payload: { menuId: menuId } });
   };
 
-  console.log(orderList);
+  const handleRemoveAllOrders = () => dispatch({ type: 'RESET' });
+
   return (
     <>
       <CategoryNavbar
@@ -55,7 +57,13 @@ export default function MainPage() {
         handleCategoryClick={handleCategoryClick}
       />
       {currentMenus && <Main handleAddOrder={handleAddOrder} menus={currentMenus} />}
-      {Object.keys(menuData).length && !isOrderListEmpty && <OrderArea orderMenus={orderMenus} />}
+      {!isMenuDataEmpty && !isOrderListEmpty && (
+        <OrderArea
+          orderMenus={orderMenus}
+          handleRemoveOrder={handleRemoveOrder}
+          handleRemoveAllOrders={handleRemoveAllOrders}
+        />
+      )}
     </>
   );
 }

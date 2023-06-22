@@ -5,23 +5,28 @@ import MenuItem from './MenuItem';
 
 interface OrderAreaProps {
   orderMenus: { menu: MenuInfo; amount: number }[];
+  handleRemoveOrder: (menuId: number) => void;
+  handleRemoveAllOrders: () => void;
 }
 
-export default function OrderArea({ orderMenus }: OrderAreaProps) {
+export default function OrderArea({ handleRemoveAllOrders, handleRemoveOrder, orderMenus }: OrderAreaProps) {
   const [seconds, setSeconds] = useState(30);
   const intervalRef: { current: null | NodeJS.Timer } = useRef(null);
 
   useEffect(() => {
-    if (seconds > 0) {
-      intervalRef.current = setInterval(() => {
-        setSeconds(seconds - 1);
-      }, 1000);
-    }
+    intervalRef.current = setInterval(() => {
+      setSeconds(prev => prev - 1);
+    }, 1000);
 
     return () => clearInterval(intervalRef.current!);
-  }, [seconds]);
+  }, []);
 
-  // TODO: dispatch deleteOrder action 넘기기
+  useEffect(() => {
+    if (seconds <= 0) {
+      handleRemoveAllOrders();
+    }
+  }, [seconds, handleRemoveAllOrders]);
+
   return (
     <div className={styles.orderArea}>
       <div className={styles.orderItems}>
@@ -32,12 +37,12 @@ export default function OrderArea({ orderMenus }: OrderAreaProps) {
               <div className={styles.amount}>{amount}</div>
               <MenuItem
                 classNames={[styles.orderItem]}
-                key={menu.menuId}
+                menuId={menu.menuId}
                 menuName={menu.name}
                 menuImg={menu.imgUrl}
                 menuPrice={menu.price}
               />
-              <button className={styles.menuCancelButton} onClick={() => {}}>
+              <button className={styles.menuCancelButton} onClick={() => handleRemoveOrder(menu.menuId)}>
                 X
               </button>
             </div>
@@ -45,7 +50,9 @@ export default function OrderArea({ orderMenus }: OrderAreaProps) {
         })}
       </div>
       <div className={styles.buttons}>
-        <button className={styles.allCancelButton}>전체취소</button>
+        <button onClick={handleRemoveAllOrders} className={styles.allCancelButton}>
+          전체취소
+        </button>
         <button className={styles.orderButton}>결제하기</button>
         <span className={styles.timer}>결제하기 버튼을 누르지 않으면 {seconds}초 뒤에 메뉴가 전체 취소돼요!</span>
       </div>
