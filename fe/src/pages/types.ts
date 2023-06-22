@@ -8,7 +8,7 @@ export interface Categories {
 
 export interface MenuInfo {
   name: string;
-  menuId: string;
+  menuId: number;
   price: number;
   imgUrl: string;
   isBest: boolean;
@@ -25,7 +25,7 @@ export interface CategoryInfo {
 }
 
 export interface MenuOrder {
-  menuId: string;
+  menuId: number;
   size: string;
   temperature: string;
   amount: number;
