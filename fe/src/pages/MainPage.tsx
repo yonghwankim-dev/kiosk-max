@@ -12,7 +12,7 @@ export default function MainPage() {
   const [orderList, dispatch]: [MenuOrder[], Dispatch<MenuOrderAction>] = useReducer(menuOrderReducer, []);
 
   useEffect(() => {
-    fetch('https://050ac41b-0add-475f-9551-31bf41119bcc.mock.pstmn.io/menus')
+    fetch('http://43.200.179.18:8080/menus')
       .then(res => res.json())
       .then(data => {
         setMenuData(data);
