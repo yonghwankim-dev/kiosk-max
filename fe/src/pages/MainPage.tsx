@@ -27,7 +27,7 @@ export default function MainPage() {
     return { categoryId: category.categoryId, categoryName: category.categoryName };
   });
   const currentMenus = selectedCategoryId && formattedMenuData[selectedCategoryId].menus;
-  const formattedOrderList = formatOrderList(orderList, (item, order) => item.menuId === order.menuId);
+  const formattedOrderList = formatOrderList(orderList);
   const formattedMenus = formatAllMenus(menuData);
 
   const orderMenus = formattedOrderList.map(order => {

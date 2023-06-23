@@ -20,17 +20,17 @@ export const formatAllCategories = (menuData: CategoryInfo[]) => {
   return formattedMenuData;
 };
 
-export function formatOrderList(orderList: MenuOrder[], findCondition: (item: MenuOrder, order: MenuOrder) => boolean) {
+export function formatOrderList(orderList: MenuOrder[]) {
   const formattedOrderList: MenuOrder[] = [];
-
   orderList.forEach(order => {
-    const { amount } = order;
-    const orderItem = formattedOrderList.find(item => findCondition(item, order));
-
+    const { menuId, size, temperature, amount } = order;
+    const orderItem = formattedOrderList.find(
+      item => item.menuId === menuId && item.size === size && item.temperature === temperature
+    );
     if (orderItem) {
       orderItem.amount += amount;
     } else {
-      formattedOrderList.push(order);
+      formattedOrderList.push({ menuId, size, temperature, amount });
     }
   });
 

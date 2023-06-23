@@ -32,14 +32,19 @@
 
 .menuItem img {
   border-radius: 1rem;
+  object-fit: scale-down;
 }
 
 .orderArea {
   display: flex;
+  justify-content: space-between;
+  padding: 1rem;
+  width: 100%;
   outline: 2px solid var(--color-primary);
 }
 
 .orderItems {
+  width: 80%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -60,6 +65,13 @@
   line-height: auto;
   overflow: hidden;
   white-space: wrap;
+}
+
+.orderItem img {
+  width: 80%;
+  height: 80%;
+  object-fit: scale-down;
+  border-radius: 0.5rem;
 }
 
 .orderItem:hover {
