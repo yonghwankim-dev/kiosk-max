@@ -20,10 +20,27 @@
 
 ## 🖥️ 동작 화면
 
+> https://kiosk-team-03.web.app/
+
 <br/>
 
 ## 🔧️ 개발 환경
 ### Front-End
+
+![](https://img.shields.io/badge/-ReactJs-61DAFB?logo=react&logoColor=white&style=flat)
+![](https://img.shields.io/badge/css-1572B6?style=for-the-badge&logo=css3&logoColor=white)
+![](https://camo.githubusercontent.com/a91f29fbfde227665b0cd5a447c0b035180e8a285bfef1ec8d91c8ba80fcaa20/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f547970657363726970742d3331373843363f7374796c653d666c6174266c6f676f3d54797065536372697074266c6f676f436f6c6f723d7768697465)
+![](https://camo.githubusercontent.com/e3883202fdd9cb44fd6a62f35730342d5cd477c3d76a2140aa38aa87eac6b224/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f2d56697375616c25323053747564696f253230436f64652d3030374143433f7374796c653d666c6174266c6f676f3d56697375616c25323053747564696f253230436f6465266c6f676f436f6c6f723d7768697465)
+
+- CRA (Create React App)
+- CSS Modules
+- Typescript: `^5.0.2`
+- @types/node: `^20.3.1`
+- @types/react: `^18.2.13`
+- @types/react-dom: `^18.2.6`
+- react: `^18.2.0`
+- react-dom: `^18.2.0`
+- react-scripts: `5.0.1`
 
 ### Back-End
 ![](https://img.shields.io/badge/Java-007396?style=flat&logo=Java&logoColor=white) 
