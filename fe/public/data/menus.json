@@ -1,0 +1,453 @@
+{
+  "coffee": [
+    {
+      "name": "프리미엄 블렌드 아메리카노",
+      "menuId": "1",
+      "price": 4900,
+      "imgUrl": "assets/MenuImg/Americano.png",
+      "isBest": true,
+      "hasLarge": true,
+      "hasSmall": true,
+      "hasHot": true,
+      "hasIce": true
+    },
+    {
+      "name": "프리미엄 블렌드 딥라떼",
+      "menuId": "2",
+      "price": 4900,
+      "imgUrl": "xxx",
+      "isBest": true,
+      "hasLarge": true,
+      "hasSmall": true,
+      "hasHot": true,
+      "hasIce": true
+    },
+    {
+      "name": "콜드부르 딜라이트",
+      "menuId": "3",
+      "price": 4900,
+      "imgUrl": "assets/MenuImg/Cold Brew Delight .png",
+      "isBest": true,
+      "hasLarge": true,
+      "hasSmall": true,
+      "hasHot": true,
+      "hasIce": true
+    },
+    {
+      "name": "콜드부르 라떼",
+      "menuId": "4",
+      "price": 4900,
+      "imgUrl": "assets/MenuImg/Cold Brew Latte.png",
+      "isBest": true,
+      "hasLarge": true,
+      "hasSmall": true,
+      "hasHot": true,
+      "hasIce": true
+    },
+    {
+      "name": "콜드브루",
+      "menuId": "5",
+      "price": 5100,
+      "imgUrl": "assets/MenuImg/Americano.png",
+      "isBest": true,
+      "hasLarge": true,
+      "hasSmall": true,
+      "hasHot": true,
+      "hasIce": true
+    },
+    {
+      "name": "바닐라딜라이트",
+      "menuId": "6",
+      "price": 5100,
+      "imgUrl": "assets/MenuImg/Vanilla Delight.png",
+      "isBest": true,
+      "hasLarge": true,
+      "hasSmall": true,
+      "hasHot": true,
+      "hasIce": true
+    },
+    {
+      "name": "리스트레또딜라이트",
+      "menuId": "7",
+      "price": 5100,
+      "imgUrl": "assets/MenuImg/Ristretto Delight.png",
+      "isBest": true,
+      "hasLarge": true,
+      "hasSmall": true,
+      "hasHot": true,
+      "hasIce": true
+    },
+    {
+      "name": "카페모카",
+      "menuId": "8",
+      "price": 5100,
+      "imgUrl": "assets/MenuImg/Caffe Mocha.png",
+      "isBest": true,
+      "hasLarge": true,
+      "hasSmall": true,
+      "hasHot": true,
+      "hasIce": true
+    },
+    {
+      "name": "카라멜마키아또",
+      "menuId": "9",
+      "price": 5100,
+      "imgUrl": "assets/MenuImg/Caramel Macchiato.png",
+      "isBest": true,
+      "hasLarge": true,
+      "hasSmall": true,
+      "hasHot": true,
+      "hasIce": true
+    },
+    {
+      "name": "카푸치노",
+      "menuId": "10",
+      "price": 5100,
+      "imgUrl": "assets/MenuImg/Cappuccino.png",
+      "isBest": true,
+      "hasLarge": true,
+      "hasSmall": true,
+      "hasHot": true,
+      "hasIce": true
+    },
+    {
+      "name": "카페 라떼",
+      "menuId": "11",
+      "price": 5100,
+      "imgUrl": "assets/MenuImg/Latte.png",
+      "isBest": true,
+      "hasLarge": true,
+      "hasSmall": true,
+      "hasHot": true,
+      "hasIce": true
+    },
+    {
+      "name": "아메리카노",
+      "menuId": "12",
+      "price": 4500,
+      "imgUrl": "assets/MenuImg/Americano.png",
+      "isBest": true,
+      "hasLarge": true,
+      "hasSmall": true,
+      "hasHot": true,
+      "hasIce": true
+    },
+
+    {
+      "name": "아포가토",
+      "menuId": "13",
+      "price": 5100,
+      "imgUrl": "assets/MenuImg/Affogato.png",
+      "isBest": true,
+      "hasLarge": true,
+      "hasSmall": true,
+      "hasHot": true,
+      "hasIce": true
+    },
+    {
+      "name": "에스프레소",
+      "menuId": "14",
+      "price": 4900,
+      "imgUrl": "assets/MenuImg/Espresso.png",
+      "isBest": true,
+      "hasLarge": true,
+      "hasSmall": true,
+      "hasHot": true,
+      "hasIce": true
+    }
+  ],
+  "latte": [
+    {
+      "name": "제주 말차 라떼",
+      "menuId": "15",
+      "price": 4900,
+      "imgUrl": "assets/MenuImg/Jeju Matcha Latte.png",
+      "isBest": true,
+      "hasLarge": true,
+      "hasSmall": true,
+      "hasHot": true,
+      "hasIce": true
+    },
+    {
+      "name": "민트초코",
+      "menuId": "",
+      "price": 4900,
+      "imgUrl": "assets/MenuImg/Mint Chocolate.png",
+      "isBest": true,
+      "hasLarge": true,
+      "hasSmall": true,
+      "hasHot": true,
+      "hasIce": true
+    },
+    {
+      "name": "밀크티라떼",
+      "menuId": "16",
+      "price": 4900,
+      "imgUrl": "assets/MenuImg/Milk Tea Latte.png",
+      "isBest": true,
+      "hasLarge": true,
+      "hasSmall": true,
+      "hasHot": true,
+      "hasIce": true
+    },
+    {
+      "name": "핫/아이스초코",
+      "menuId": "17",
+      "price": 4900,
+      "imgUrl": "assets/MenuImg/Chocolate HOT:ICED.png",
+      "isBest": true,
+      "hasLarge": true,
+      "hasSmall": true,
+      "hasHot": true,
+      "hasIce": true
+    },
+    {
+      "name": "화이트초코",
+      "menuId": "18",
+      "price": 4900,
+      "imgUrl": "assets/MenuImg/White Chocolate.png",
+      "isBest": true,
+      "hasLarge": true,
+      "hasSmall": true,
+      "hasHot": true,
+      "hasIce": true
+    }
+  ],
+  "juice": [
+    {
+      "name": "수박 쿨러 스무디",
+      "menuId": "19",
+      "price": 3000,
+      "imgUrl": "assetss/menuImg/Watermelon Cooler Smoothie.png",
+      "isBest": true,
+      "hasLarge": true,
+      "hasSmall": true,
+      "hasHot": true,
+      "hasIce": true
+    },
+    {
+      "name": "골드파인 트로피칼 스무디",
+      "menuId": "20",
+      "price": 3000,
+      "imgUrl": "assetss/menuImg/Gold Pineapple Tropical Smoothie.png",
+      "isBest": true,
+      "hasLarge": true,
+      "hasSmall": true,
+      "hasHot": true,
+      "hasIce": true
+    },
+    {
+      "name": "토마토 통통 주스",
+      "menuId": "21",
+      "price": 3000,
+      "imgUrl": "assetss/MenuImg/Tomato Juice.png",
+      "isBest": true,
+      "hasLarge": true,
+      "hasSmall": true,
+      "hasHot": true,
+      "hasIce": true
+    },
+    {
+      "name": "피치 딸기 크러쉬",
+      "menuId": "22",
+      "price": 3000,
+      "imgUrl": "assetss/menuImg/Apple Beet Juice.png",
+      "isBest": true,
+      "hasLarge": true,
+      "hasSmall": true,
+      "hasHot": true,
+      "hasIce": true
+    },
+    {
+      "name": "애플망고 스무디",
+      "menuId": "23",
+      "price": 3000,
+      "imgUrl": "assetss/MenuImg/Apple mango Smoothie.png",
+      "isBest": true,
+      "hasLarge": true,
+      "hasSmall": true,
+      "hasHot": true,
+      "hasIce": true
+    },
+    {
+      "name": "딸기 스무디",
+      "menuId": "",
+      "price": 3000,
+      "imgUrl": "assetss/menuImg/Strawberry Smoothie.png",
+      "isBest": true,
+      "hasLarge": true,
+      "hasSmall": true,
+      "hasHot": true,
+      "hasIce": true
+    },
+    {
+      "name": "사과 비트 착즙 주스",
+      "menuId": "24",
+      "price": 3000,
+      "imgUrl": "assetss/menuImg/Apple Best Juice.png",
+      "isBest": true,
+      "hasLarge": true,
+      "hasSmall": true,
+      "hasHot": true,
+      "hasIce": true
+    },
+    {
+      "name": "오렌지 당근 착즙 주스",
+      "menuId": "25",
+      "price": 3000,
+      "imgUrl": "xxx",
+      "isBest": true,
+      "hasLarge": true,
+      "hasSmall": true,
+      "hasHot": true,
+      "hasIce": true
+    },
+    {
+      "name": "청포도케일 착즙 주스",
+      "menuId": "26",
+      "price": 3000,
+      "imgUrl": "xxx",
+      "isBest": true,
+      "hasLarge": true,
+      "hasSmall": true,
+      "hasHot": true,
+      "hasIce": true
+    }
+  ],
+  "tea": [
+    {
+      "name": "유자 캐모마일",
+      "menuId": "27",
+      "price": 3000,
+      "imgUrl": "xxx",
+      "isBest": false,
+      "hasLarge": true,
+      "hasSmall": true,
+      "hasHot": true,
+      "hasIce": true
+    },
+    {
+      "name": "복숭아 얼그레이",
+      "menuId": "28",
+      "price": 3000,
+      "imgUrl": "xxx",
+      "isBest": false,
+      "hasLarge": true,
+      "hasSmall": true,
+      "hasHot": true,
+      "hasIce": true
+    },
+    {
+      "name": "홍자몽차",
+      "menuId": "",
+      "price": 3000,
+      "imgUrl": "xxx",
+      "isBest": false,
+      "hasLarge": true,
+      "hasSmall": true,
+      "hasHot": true,
+      "hasIce": true
+    },
+    {
+      "name": "제주 한라봉 감귤차",
+      "menuId": "29",
+      "price": 3000,
+      "imgUrl": "xxx",
+      "isBest": false,
+      "hasLarge": true,
+      "hasSmall": true,
+      "hasHot": true,
+      "hasIce": true
+    },
+    {
+      "name": "고흥 유자차",
+      "menuId": "30",
+      "price": 3000,
+      "imgUrl": "xxx",
+      "isBest": false,
+      "hasLarge": true,
+      "hasSmall": true,
+      "hasHot": true,
+      "hasIce": true
+    },
+    {
+      "name": "해남 녹차",
+      "menuId": "31",
+      "price": 3000,
+      "imgUrl": "xxx",
+      "isBest": false,
+      "hasLarge": true,
+      "hasSmall": true,
+      "hasHot": true,
+      "hasIce": true
+    },
+    {
+      "name": "페퍼민트",
+      "menuId": "32",
+      "price": 3000,
+      "imgUrl": "xxx",
+      "isBest": false,
+      "hasLarge": true,
+      "hasSmall": true,
+      "hasHot": true,
+      "hasIce": true
+    },
+    {
+      "name": "캐모마일",
+      "menuId": "33",
+      "price": 3000,
+      "imgUrl": "xxx",
+      "isBest": false,
+      "hasLarge": true,
+      "hasSmall": true,
+      "hasHot": true,
+      "hasIce": true
+    },
+    {
+      "name": "얼그레이",
+      "menuId": "34",
+      "price": 3000,
+      "imgUrl": "xxx",
+      "isBest": false,
+      "hasLarge": true,
+      "hasSmall": true,
+      "hasHot": true,
+      "hasIce": true
+    }
+  ],
+  "sparkling": [
+    {
+      "name": "유자몽 스파클링",
+      "menuId": "35",
+      "price": 4900,
+      "imgUrl": "assets/MenuImg/Yuzu Grapefruit Sparkling .png",
+      "isBest": true,
+      "hasLarge": true,
+      "hasSmall": true,
+      "hasHot": true,
+      "hasIce": true
+    },
+    {
+      "name": "복숭아자두 스파클링",
+      "menuId": "36",
+      "price": 4900,
+      "imgUrl": "assets/MenuImg/Peach Plum Sparkling .png",
+      "isBest": true,
+      "hasLarge": true,
+      "hasSmall": true,
+      "hasHot": true,
+      "hasIce": true
+    },
+    {
+      "name": "청포도 스파클링",
+      "menuId": "37",
+      "price": 4900,
+      "imgUrl": "assets/MenuImg/Green Grape SPARKLING .png",
+      "isBest": true,
+      "hasLarge": true,
+      "hasSmall": true,
+      "hasHot": true,
+      "hasIce": true
+    }
+  ]
+}
