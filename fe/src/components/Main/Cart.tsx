@@ -9,7 +9,7 @@ interface OrderAreaProps {
   handleRemoveAllOrders: () => void;
 }
 
-export default function OrderArea({ handleRemoveAllOrders, handleRemoveOrder, orderMenus }: OrderAreaProps) {
+export default function Cart({ handleRemoveAllOrders, handleRemoveOrder, orderMenus }: OrderAreaProps) {
   const [seconds, setSeconds] = useState(30);
   const intervalRef: { current: null | NodeJS.Timer } = useRef(null);
 

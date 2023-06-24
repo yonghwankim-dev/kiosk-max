@@ -1,5 +1,5 @@
 import Main from 'components/Main';
-import OrderArea from 'components/Main/OrderArea';
+import Cart from 'components/Main/Cart';
 import CategoryNavbar from 'components/Navbar';
 import menuOrderReducer, { MenuOrderAction } from 'menuOrderReducer';
 import { Dispatch, SetStateAction, useEffect, useReducer, useState } from 'react';
@@ -58,7 +58,7 @@ export default function MainPage() {
       />
       {currentMenus && <Main handleAddOrder={handleAddOrder} menus={currentMenus} />}
       {!isMenuDataEmpty && !isOrderListEmpty && (
-        <OrderArea
+        <Cart
           orderMenus={orderMenus}
           handleRemoveOrder={handleRemoveOrder}
           handleRemoveAllOrders={handleRemoveAllOrders}
