@@ -178,3 +178,18 @@
   border: 1px solid black;
   background-color: rgba(128, 128, 128, 0.7);
 }
+
+.best {
+  background-image: url('../../../public/assets/icon/best.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 4rem;
+  height: 4rem;
+  color: var(--color-white);
+  transform: translate(4rem, 1rem);
+  font-weight: var(--font-weight-bold);
+  z-index: 1;
+}

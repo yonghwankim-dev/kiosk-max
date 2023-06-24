@@ -31,24 +31,28 @@ export default function Main({ handleAddOrder, menus }: MainProps) {
     setOrderModal(false);
   };
 
-  const menuItems = menus.map(menu => (
-    <MenuItem
-      key={menu.menuId}
-      menuId={menu.menuId}
-      menuName={menu.name}
-      menuImg={menu.imgUrl}
-      menuPrice={menu.price}
-      hasLarge={menu.hasLarge}
-      hasSmall={menu.hasSmall}
-      hasHot={menu.hasHot}
-      hasIce={menu.hasIce}
-      openOrderModal={openOrderModal}
-      setSelectedMenu={setSelectedMenu}
-    />
-  ));
   return (
     <div className={styles.main}>
-      {menuItems}
+      {menus.map(menu => {
+        return (
+          <>
+            {menu.isBest && <div className={styles.best}>인기</div>}
+            <MenuItem
+              key={menu.menuId}
+              menuId={menu.menuId}
+              menuName={menu.name}
+              menuImg={menu.imgUrl}
+              menuPrice={menu.price}
+              hasLarge={menu.hasLarge}
+              hasSmall={menu.hasSmall}
+              hasHot={menu.hasHot}
+              hasIce={menu.hasIce}
+              openOrderModal={openOrderModal}
+              setSelectedMenu={setSelectedMenu}
+            />
+          </>
+        );
+      })}
       {isOrderModalOpen && (
         <dialog open className={styles.OrderModal}>
           <OrderModal handleAddOrder={handleAddOrder} menu={selectedMenu} closeOrderModal={closeOrderModal} />
