@@ -1,0 +1,26 @@
+.categoryNavbar {
+  width: 100%;
+  height: 20%;
+  display: flex;
+  justify-content: space-around;
+  outline: 2px solid var(--color-primary);
+}
+
+.categoryButton {
+  background-color: #fff;
+  color: var(--color-primary);
+  outline: 2px solid var(--color-primary);
+  padding: 1.5rem;
+  cursor: pointer;
+  width: 100%;
+  height: 100%;
+  font-family: var(--font-family);
+  font-weight: var(--font-weight-bold);
+  font-size: var(--font-size-display);
+  line-height: auto;
+}
+
+.active {
+  color: #fff;
+  background-color: var(--color-primary);
+}
