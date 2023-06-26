@@ -1,14 +1,15 @@
-import { AllMenus, Categories, CategoryInfo, MenuInfo, MenuOrder } from 'pages/types';
+import { Categories, CategoryInfo, MenuInfo, MenuOrder, Menus } from 'pages/types';
 
-export const formatAllMenus = (menuData: CategoryInfo[]) => {
-  const allMenus: AllMenus = {};
+export const formatProducts = (menuData: CategoryInfo[]) => {
+  const menus: Menus = {};
+
   menuData.forEach((category: CategoryInfo) => {
     category.menus.forEach((menu: MenuInfo) => {
-      allMenus[menu.menuId] = menu;
+      menus[menu.menuId] = menu;
     });
   });
 
-  return allMenus;
+  return menus;
 };
 
 export const formatAllCategories = (menuData: CategoryInfo[]) => {

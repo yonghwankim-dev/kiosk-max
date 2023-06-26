@@ -12,7 +12,7 @@ const fetchJSON = async (url: URL) => {
 
 export const fetchMenus = async () => {
   try {
-    const url = new URL('menus', BASE_API_DOMAIN);
+    const url = new URL('products', BASE_API_DOMAIN);
     return await fetchJSON(url);
   } catch (error) {
     console.error(error);

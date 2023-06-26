@@ -1,30 +1,30 @@
 import Main from 'components/Main';
 import Cart from 'components/Main/Cart';
 import CategoryNavbar from 'components/Navbar';
-import menuOrderReducer, { MenuOrderAction } from 'menuOrderReducer';
-import { Dispatch, SetStateAction, useMemo, useReducer, useState } from 'react';
-import { formatAllCategories, formatAllMenus, formatOrderList } from 'utils';
+import menuOrderReducer from 'menuOrderReducer';
+import { useMemo, useReducer, useRef, useState } from 'react';
+import { formatAllCategories, formatOrderList, formatProducts } from 'utils';
+import styles from './MainPage.module.css';
 import { CategoryInfo, MenuOrder } from './types';
 
 interface MainPageProps {
-  allMenus: CategoryInfo[];
+  products: CategoryInfo[];
 }
 
-export default function MainPage({ allMenus }: MainPageProps) {
-  const [selectedCategoryId, setSelectedCategoryId]: [string, Dispatch<SetStateAction<string>>] = useState(
-    allMenus[0].categoryId
-  );
-  const [orderList, dispatch]: [MenuOrder[], Dispatch<MenuOrderAction>] = useReducer(menuOrderReducer, []);
+export default function MainPage({ products }: MainPageProps) {
+  const [selectedCategoryId, setSelectedCategoryId] = useState<number>(products[0].categoryId);
+  const [orderList, dispatch] = useReducer(menuOrderReducer, []);
+  const mainPageRef = useRef<HTMLDivElement>(null);
 
   const categoryNavbarInfo = useMemo(
     () =>
-      allMenus.map((category: CategoryInfo) => {
+      products.map((category: CategoryInfo) => {
         return { categoryId: category.categoryId, categoryName: category.categoryName };
       }),
-    [allMenus]
+    [products]
   );
-  const formattedMenuData = useMemo(() => formatAllCategories(allMenus), [allMenus]);
-  const formattedMenus = useMemo(() => formatAllMenus(allMenus), [allMenus]);
+  const formattedMenuData = useMemo(() => formatAllCategories(products), [products]);
+  const formattedMenus = useMemo(() => formatProducts(products), [products]);
   const currentMenus = formattedMenuData[selectedCategoryId].menus;
   const formattedOrderList = useMemo(() => formatOrderList(orderList), [orderList]);
   const orderMenus = formattedOrderList.map(order => {
@@ -34,21 +34,22 @@ export default function MainPage({ allMenus }: MainPageProps) {
   });
   const isOrderListEmpty = orderList.length === 0;
 
-  const handleCategoryClick = (clickCategoryId: string) => setSelectedCategoryId(clickCategoryId);
+  const handleCategoryClick = (clickCategoryId: number) => setSelectedCategoryId(clickCategoryId);
   const handleAddOrder = (menuOrder: MenuOrder) => dispatch({ type: 'ADD_ORDER', payload: { newOrder: menuOrder } });
   const handleRemoveOrder = (menuId: number) => dispatch({ type: 'REMOVE_ORDER', payload: { menuId: menuId } });
   const handleRemoveAllOrders = () => dispatch({ type: 'RESET' });
 
   return (
-    <div className="mainPage">
+    <div ref={mainPageRef} className={styles.mainPage}>
       <CategoryNavbar
         selectedCategoryId={selectedCategoryId}
         categories={categoryNavbarInfo}
         handleCategoryClick={handleCategoryClick}
       />
-      {currentMenus && <Main handleAddOrder={handleAddOrder} menus={currentMenus} />}
+      <Main handleAddOrder={handleAddOrder} menus={currentMenus} />
       {!isOrderListEmpty && (
         <Cart
+          mainPageRef={mainPageRef}
           orderMenus={orderMenus}
           handleRemoveOrder={handleRemoveOrder}
           handleRemoveAllOrders={handleRemoveAllOrders}
