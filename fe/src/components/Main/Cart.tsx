@@ -21,11 +21,9 @@ export default function Cart({ handleRemoveAllOrders, handleRemoveOrder, orderMe
     return () => clearInterval(intervalRef.current!);
   }, []);
 
-  useEffect(() => {
-    if (seconds <= 0) {
-      handleRemoveAllOrders();
-    }
-  }, [seconds, handleRemoveAllOrders]);
+  if (seconds <= 0) {
+    handleRemoveAllOrders();
+  }
 
   return (
     <div className={styles.orderArea}>

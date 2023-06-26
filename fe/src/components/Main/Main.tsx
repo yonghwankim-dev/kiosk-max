@@ -1,6 +1,6 @@
 import OrderModal from 'components/Modal/OrderModal';
 import { MenuInfo, MenuOrder } from 'pages/types';
-import { Dispatch, SetStateAction, useState } from 'react';
+import React, { Dispatch, SetStateAction, useState } from 'react';
 import styles from './Main.module.css';
 import MenuItem from './MenuItem';
 
@@ -35,7 +35,7 @@ export default function Main({ handleAddOrder, menus }: MainProps) {
     <div className={styles.main}>
       {menus.map(menu => {
         return (
-          <>
+          <React.Fragment key={menu.menuId}>
             {menu.isBest && <div className={styles.best}>인기</div>}
             <MenuItem
               key={menu.menuId}
@@ -50,7 +50,7 @@ export default function Main({ handleAddOrder, menus }: MainProps) {
               openOrderModal={openOrderModal}
               setSelectedMenu={setSelectedMenu}
             />
-          </>
+          </React.Fragment>
         );
       })}
       {isOrderModalOpen && (
