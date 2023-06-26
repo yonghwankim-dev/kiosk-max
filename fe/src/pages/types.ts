@@ -1,9 +1,12 @@
+type MenuId = number;
+type CategoryId = number;
+
 export interface Menus {
-  [key: string]: MenuInfo[];
+  [key: MenuId]: MenuInfo;
 }
 
 export interface Categories {
-  [key: string]: CategoryInfo;
+  [key: CategoryId]: CategoryInfo;
 }
 
 export interface MenuInfo {
@@ -20,7 +23,7 @@ export interface MenuInfo {
 
 export interface CategoryInfo {
   categoryName: string;
-  categoryId: string;
+  categoryId: number;
   menus: MenuInfo[];
 }
 
@@ -49,8 +52,4 @@ interface OrderSuccessInfo {
 interface OrderResult {
   success: boolean;
   errorCode: { status: number; code: string; message: string };
-}
-
-export interface AllMenus {
-  [key: string]: MenuInfo;
 }
