@@ -1,9 +1,10 @@
 import Main from 'components/Main';
 import Cart from 'components/Main/Cart';
 import CategoryNavbar from 'components/Navbar';
-import menuOrderReducer, { MenuOrderAction } from 'menuOrderReducer';
-import { Dispatch, SetStateAction, useMemo, useReducer, useState } from 'react';
+import menuOrderReducer from 'menuOrderReducer';
+import { useMemo, useReducer, useRef, useState } from 'react';
 import { formatAllCategories, formatAllMenus, formatOrderList } from 'utils';
+import styles from './MainPage.module.css';
 import { CategoryInfo, MenuOrder } from './types';
 
 interface MainPageProps {
@@ -11,10 +12,9 @@ interface MainPageProps {
 }
 
 export default function MainPage({ allMenus }: MainPageProps) {
-  const [selectedCategoryId, setSelectedCategoryId]: [string, Dispatch<SetStateAction<string>>] = useState(
-    allMenus[0].categoryId
-  );
-  const [orderList, dispatch]: [MenuOrder[], Dispatch<MenuOrderAction>] = useReducer(menuOrderReducer, []);
+  const [selectedCategoryId, setSelectedCategoryId] = useState<string>(allMenus[0].categoryId);
+  const [orderList, dispatch] = useReducer(menuOrderReducer, []);
+  const mainPageRef = useRef<HTMLDivElement>(null);
 
   const categoryNavbarInfo = useMemo(
     () =>
@@ -40,15 +40,16 @@ export default function MainPage({ allMenus }: MainPageProps) {
   const handleRemoveAllOrders = () => dispatch({ type: 'RESET' });
 
   return (
-    <div className="mainPage">
+    <div ref={mainPageRef} className={styles.mainPage}>
       <CategoryNavbar
         selectedCategoryId={selectedCategoryId}
         categories={categoryNavbarInfo}
         handleCategoryClick={handleCategoryClick}
       />
-      {currentMenus && <Main handleAddOrder={handleAddOrder} menus={currentMenus} />}
+      <Main handleAddOrder={handleAddOrder} menus={currentMenus} />
       {!isOrderListEmpty && (
         <Cart
+          mainPageRef={mainPageRef}
           orderMenus={orderMenus}
           handleRemoveOrder={handleRemoveOrder}
           handleRemoveAllOrders={handleRemoveAllOrders}

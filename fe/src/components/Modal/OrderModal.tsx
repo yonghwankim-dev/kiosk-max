@@ -1,6 +1,7 @@
 import MenuItem from 'components/Main/MenuItem';
 import { MenuOrder } from 'pages/types';
 import { useState } from 'react';
+import ModalStyles from './Modal.module.css';
 import styles from './OrderModal.module.css';
 
 interface MenuInfo {
@@ -81,7 +82,7 @@ export default function OrderModal({ menu, closeOrderModal, handleAddOrder }: Or
 
 function CloseButton({ closeOrderModal }: { closeOrderModal: () => void }) {
   return (
-    <button className={styles.closeButton} type="button" onClick={closeOrderModal}>
+    <button className={ModalStyles.closeButton} type="button" onClick={closeOrderModal}>
       X
     </button>
   );

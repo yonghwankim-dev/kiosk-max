@@ -61,18 +61,6 @@
   gap: 20px;
 }
 
-.closeButton {
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 25px;
-  height: 25px;
-  border-radius: 50%;
-  background-color: #fff;
-  border: 1px solid black;
-  transform: translate(50%, -50%);
-}
-
 .addButton {
   width: 80%;
   height: 50px;

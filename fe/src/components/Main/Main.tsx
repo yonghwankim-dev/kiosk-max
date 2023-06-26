@@ -1,6 +1,7 @@
 import OrderModal from 'components/Modal/OrderModal';
 import { MenuInfo, MenuOrder } from 'pages/types';
-import React, { Dispatch, SetStateAction, useState } from 'react';
+import React, { useState } from 'react';
+import ModalStyles from '../Modal/Modal.module.css';
 import styles from './Main.module.css';
 import MenuItem from './MenuItem';
 
@@ -10,8 +11,8 @@ interface MainProps {
 }
 
 export default function Main({ handleAddOrder, menus }: MainProps) {
-  const [isOrderModalOpen, setOrderModal]: [boolean, Dispatch<SetStateAction<boolean>>] = useState(false);
-  const [selectedMenu, setSelectedMenu]: [MenuInfo, Dispatch<MenuInfo>] = useState<MenuInfo>({
+  const [isOrderModalOpen, setOrderModal] = useState<boolean>(false);
+  const [selectedMenu, setSelectedMenu] = useState<MenuInfo>({
     name: '',
     menuId: 0,
     price: 0,
@@ -54,9 +55,9 @@ export default function Main({ handleAddOrder, menus }: MainProps) {
         );
       })}
       {isOrderModalOpen && (
-        <dialog open className={styles.OrderModal}>
+        <div className={ModalStyles.dim}>
           <OrderModal handleAddOrder={handleAddOrder} menu={selectedMenu} closeOrderModal={closeOrderModal} />
-        </dialog>
+        </div>
       )}
     </div>
   );

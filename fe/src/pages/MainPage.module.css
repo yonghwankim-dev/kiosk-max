@@ -1,0 +1,10 @@
+.mainPage {
+  position: relative;
+  width: 50rem;
+  height: 100%;
+  border: 2px solid var(--color-primary);
+  font-family: var(--font-family);
+  font-weight: var(--font-weight-bold);
+  font-size: var(--font-size-title-md);
+  line-height: auto;
+}
