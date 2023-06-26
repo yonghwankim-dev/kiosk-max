@@ -25,8 +25,6 @@ interface OrderModalProps {
   menu: MenuInfo;
   closeOrderModal: () => void;
   handleAddOrder: (menuOrder: OrderDataInfo) => void;
-  // orderList: [];
-  // setOrderList: (data: OrderDataInfo) => void;
 }
 
 export default function OrderModal({ menu, closeOrderModal, handleAddOrder }: OrderModalProps) {
@@ -131,20 +129,10 @@ function SizeOption({ hasSmall, hasLarge, selectedSize, setSelectedSize }: SizeO
   return (
     <div className={hasSmall && hasLarge ? styles.dualButtonWrap : styles.singleButtonWrap}>
       {hasSmall && (
-        <button
-          onClick={() => setSelectedSize('Small')}
-          className={`${styles.optionButton} ${selectedSize === 'Small' ? `${styles.selected}` : ''}`}
-        >
-          Small
-        </button>
+        <OptionButton label={'Small'} isSelected={selectedSize === 'Small'} onClick={() => setSelectedSize('Small')} />
       )}
       {hasLarge && (
-        <button
-          onClick={() => setSelectedSize('Large')}
-          className={`${styles.optionButton} ${selectedSize === 'Large' ? `${styles.selected}` : ''}`}
-        >
-          Large
-        </button>
+        <OptionButton label={'Large'} isSelected={selectedSize === 'Large'} onClick={() => setSelectedSize('Large')} />
       )}
     </div>
   );
@@ -161,20 +149,10 @@ function TempOption({ hasHot, hasIce, selectedTemp, setSelectedTemp }: TempOptio
   return (
     <div className={hasHot && hasIce ? styles.dualButtonWrap : styles.singleButtonWrap}>
       {hasHot && (
-        <button
-          onClick={() => setSelectedTemp('Hot')}
-          className={`${styles.optionButton} ${selectedTemp === 'Hot' ? `${styles.selected}` : ''}`}
-        >
-          Hot
-        </button>
+        <OptionButton label={'Hot'} isSelected={selectedTemp === 'Hot'} onClick={() => setSelectedTemp('Hot')} />
       )}
       {hasIce && (
-        <button
-          onClick={() => setSelectedTemp('Ice')}
-          className={`${styles.optionButton} ${selectedTemp === 'Ice' ? `${styles.selected}` : ''}`}
-        >
-          Ice
-        </button>
+        <OptionButton label={'Ice'} isSelected={selectedTemp === 'Ice'} onClick={() => setSelectedTemp('Ice')} />
       )}
     </div>
   );
@@ -226,6 +204,20 @@ function AddButton({ closeOrderModal, sendOrderData, handleAddOrder, selectedSiz
       }}
     >
       담기
+    </button>
+  );
+}
+
+interface OptionButtonProps {
+  label: string;
+  isSelected: boolean;
+  onClick: () => void;
+}
+
+function OptionButton({ label, isSelected, onClick }: OptionButtonProps) {
+  return (
+    <button onClick={onClick} className={`${styles.optionButton} ${isSelected ? `${styles.selected}` : ''}`}>
+      {label}
     </button>
   );
 }
