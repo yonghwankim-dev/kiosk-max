@@ -3,7 +3,7 @@ import Receipt from 'components/Receipt/Receipt';
 import { OrderSuccessInfo } from './types';
 import { useEffect, useRef, useState } from 'react';
 
-export default function ReceiptPage({ orderSuccessInfo }: { orderSuccessInfo: OrderSuccessInfo }) {
+export default function ReceiptPage({ orderId }: { orderId: number }) {
   const [seconds, setSeconds] = useState(10);
   const intervalRef: { current: null | NodeJS.Timer } = useRef(null);
 
@@ -26,7 +26,7 @@ export default function ReceiptPage({ orderSuccessInfo }: { orderSuccessInfo: Or
 
   return (
     <div className={styles.receiptPage}>
-      <Receipt data={orderSuccessInfo} />
+      {/* <Receipt data={orderSuccessInfo} /> */}
       <span className={styles.timerInfo}>(주의: 이 화면은 10초 뒤에 자동으로 사라집니다)</span>
       <span className={styles.seconds}>{`${seconds}초`}</span>
     </div>
