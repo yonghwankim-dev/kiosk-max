@@ -10,11 +10,19 @@ interface CartProps {
   mainPageRef: React.RefObject<HTMLDivElement>;
   orderList: MenuOrder[];
   menus: Menus;
+  navigate: (path: string) => void;
   handleRemoveOrder: (menuId: number) => void;
   handleRemoveAllOrders: () => void;
 }
 
-export default function Cart({ mainPageRef, handleRemoveAllOrders, handleRemoveOrder, menus, orderList }: CartProps) {
+export default function Cart({
+  navigate,
+  mainPageRef,
+  handleRemoveAllOrders,
+  handleRemoveOrder,
+  menus,
+  orderList,
+}: CartProps) {
   const [seconds, setSeconds] = useState(30);
   const intervalRef: { current: null | NodeJS.Timer } = useRef(null);
   const [showPaymentModal, setShowPaymentModal] = useState<boolean>(false);
@@ -91,6 +99,7 @@ export default function Cart({ mainPageRef, handleRemoveAllOrders, handleRemoveO
       {showPaymentModal &&
         createPortal(
           <PaymentModalContent
+            navigate={navigate}
             totalPrice={totalPrice}
             orderList={orderList}
             handlePaymentCancelButtonClick={handlePaymentCancelButtonClick}

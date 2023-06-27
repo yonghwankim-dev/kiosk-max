@@ -8,12 +8,14 @@ import styles from './PaymentModalContent.module.css';
 interface PaymentModalContentProps {
   totalPrice: number;
   handlePaymentCancelButtonClick: () => void;
+  navigate: (path: string) => void;
   orderList: MenuOrder[];
 }
 
 export default function PaymentModalContent({
   totalPrice,
   handlePaymentCancelButtonClick,
+  navigate,
   orderList,
 }: PaymentModalContentProps) {
   const [paymentOption, setPaymentOption] = useState<'card' | 'cash' | 'select'>('select');
@@ -34,9 +36,8 @@ export default function PaymentModalContent({
     setLoading(false);
     switch (response.errorCode.status) {
       case 200: {
-        // const orderId = response.data.orderId;
-        // window.location.href = `/payment/card/${orderId}`;
-        // fetchReceipt(orderId);
+        const orderId = response.data.orderId;
+        navigate(`/receipt/orderId/${orderId}`);
         return;
       }
       case 400: {

@@ -15,10 +15,10 @@ export interface MenuInfo {
   price: number;
   imgUrl: string;
   isBest?: boolean;
-  hasLarge: boolean | undefined;
-  hasSmall: boolean | undefined;
-  hasHot: boolean | undefined;
-  hasIce: boolean | undefined;
+  hasLarge: boolean;
+  hasSmall: boolean;
+  hasHot: boolean;
+  hasIce: boolean;
 }
 
 export interface CategoryInfo {

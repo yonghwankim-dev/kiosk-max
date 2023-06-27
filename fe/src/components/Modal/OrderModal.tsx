@@ -1,31 +1,13 @@
 import MenuItem from 'components/Main/MenuItem';
-import { MenuOrder } from 'pages/types';
+import { MenuInfo, MenuOrder } from 'pages/types';
 import { useState } from 'react';
 import ModalStyles from './Modal.module.css';
 import styles from './OrderModal.module.css';
 
-interface MenuInfo {
-  name: string;
-  menuId: number;
-  price: number;
-  imgUrl: string;
-  isBest: boolean;
-  hasLarge: boolean;
-  hasSmall: boolean;
-  hasHot: boolean;
-  hasIce: boolean;
-}
-
-interface OrderDataInfo {
-  menuId: number;
-  size: string;
-  temperature: string;
-  amount: number;
-}
 interface OrderModalProps {
   menu: MenuInfo;
   closeOrderModal: () => void;
-  handleAddOrder: (menuOrder: OrderDataInfo) => void;
+  handleAddOrder: (menuOrder: MenuOrder) => void;
 }
 
 export default function OrderModal({ menu, closeOrderModal, handleAddOrder }: OrderModalProps) {

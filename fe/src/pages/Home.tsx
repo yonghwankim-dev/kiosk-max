@@ -64,7 +64,7 @@ export default function MainPage({ navigate }: MainPageProps) {
       {currentMenus && <Main handleAddOrder={handleAddOrder} menus={currentMenus.menus} />}
       {!isOrderListEmpty && (
         <Cart
-          // navigate={navigate}
+          navigate={navigate}
           mainPageRef={mainPageRef}
           menus={formattedMenus}
           orderList={orderList}

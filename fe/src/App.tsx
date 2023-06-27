@@ -1,4 +1,5 @@
 import Home from 'pages/Home';
+import ReceiptPage from 'pages/ReceiptPage';
 import { useState } from 'react';
 import './App.css';
 
@@ -11,7 +12,7 @@ function Router() {
   const navigate = (path: string) => setPage(path);
 
   let content;
-  const orderId = page.split('/')[3];
+  const orderId = Number(page.split('/')[3]);
 
   switch (page) {
     case '/': {
@@ -20,7 +21,7 @@ function Router() {
     }
 
     case `/receipt/orderId/${orderId}`: {
-      // content = <Receipt orderId={orderId} />;
+      content = <ReceiptPage orderId={orderId} />;
     }
   }
   return <div className="App">{content}</div>;
