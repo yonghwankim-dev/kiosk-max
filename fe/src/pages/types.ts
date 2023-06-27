@@ -49,7 +49,8 @@ interface OrderSuccessInfo {
   orderDateTime: string;
 }
 
-interface OrderResult {
+export interface OrderResult {
   success: boolean;
+  data: { orderId: number };
   errorCode: { status: number; code: string; message: string };
 }

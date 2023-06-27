@@ -3,7 +3,7 @@ import Cart from 'components/Main/Cart';
 import CategoryNavbar from 'components/Navbar';
 import menuOrderReducer from 'menuOrderReducer';
 import { useMemo, useReducer, useRef, useState } from 'react';
-import { formatAllCategories, formatOrderList, formatProducts } from 'utils';
+import { formatAllCategories, formatProducts } from 'utils';
 import styles from './MainPage.module.css';
 import { CategoryInfo, MenuOrder } from './types';
 
@@ -26,12 +26,6 @@ export default function MainPage({ products }: MainPageProps) {
   const formattedMenuData = useMemo(() => formatAllCategories(products), [products]);
   const formattedMenus = useMemo(() => formatProducts(products), [products]);
   const currentMenus = formattedMenuData[selectedCategoryId].menus;
-  const formattedOrderList = useMemo(() => formatOrderList(orderList), [orderList]);
-  const orderMenus = formattedOrderList.map(order => {
-    const { menuId, amount } = order;
-    const menu = formattedMenus[menuId];
-    return { menu, amount };
-  });
   const isOrderListEmpty = orderList.length === 0;
 
   const handleCategoryClick = (clickCategoryId: number) => setSelectedCategoryId(clickCategoryId);
@@ -50,7 +44,8 @@ export default function MainPage({ products }: MainPageProps) {
       {!isOrderListEmpty && (
         <Cart
           mainPageRef={mainPageRef}
-          orderMenus={orderMenus}
+          menus={formattedMenus}
+          orderList={orderList}
           handleRemoveOrder={handleRemoveOrder}
           handleRemoveAllOrders={handleRemoveAllOrders}
         />

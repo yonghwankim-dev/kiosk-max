@@ -10,6 +10,9 @@ function App() {
 
   const getMenus = async () => {
     const menuData = await fetchMenus();
+    if (!menuData) {
+      return;
+    }
     setMenuData(menuData);
     setLoading(false);
   };

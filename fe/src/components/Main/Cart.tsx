@@ -1,22 +1,23 @@
 import PaymentModalContent from 'components/Modal/PaymentModalContent';
-import { MenuInfo } from 'pages/types';
-import { useEffect, useRef, useState } from 'react';
+import { MenuOrder, Menus } from 'pages/types';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
+import { formatSameMenuOrderList } from 'utils';
 import styles from './Main.module.css';
 import MenuItem from './MenuItem';
 
-interface OrderAreaProps {
+interface CartProps {
   mainPageRef: React.RefObject<HTMLDivElement>;
-  orderMenus: { menu: MenuInfo; amount: number }[];
+  orderList: MenuOrder[];
+  menus: Menus;
   handleRemoveOrder: (menuId: number) => void;
   handleRemoveAllOrders: () => void;
 }
 
-export default function Cart({ mainPageRef, handleRemoveAllOrders, handleRemoveOrder, orderMenus }: OrderAreaProps) {
+export default function Cart({ mainPageRef, handleRemoveAllOrders, handleRemoveOrder, menus, orderList }: CartProps) {
   const [seconds, setSeconds] = useState(30);
   const intervalRef: { current: null | NodeJS.Timer } = useRef(null);
   const [showPaymentModal, setShowPaymentModal] = useState<boolean>(false);
-  const [paymentOption, setPaymentOption] = useState<'card' | 'cash' | 'select'>('select');
 
   useEffect(() => {
     intervalRef.current = setInterval(() => {
@@ -29,6 +30,19 @@ export default function Cart({ mainPageRef, handleRemoveAllOrders, handleRemoveO
   if (seconds <= 0) {
     handleRemoveAllOrders();
   }
+
+  const formattedOrderList = useMemo(() => formatSameMenuOrderList(orderList), [orderList]);
+  const orderMenus = formattedOrderList.map(order => {
+    const { menuId, amount } = order;
+    const menu = menus[menuId];
+    return { menu, amount };
+  });
+  const totalPrice = useMemo(() => {
+    return orderMenus.reduce((acc, cur) => {
+      const { menu, amount } = cur;
+      return acc + menu.price * amount;
+    }, 0);
+  }, [orderMenus]);
 
   const handlePaymentButtonClick = () => {
     clearInterval(intervalRef.current!);
@@ -44,7 +58,7 @@ export default function Cart({ mainPageRef, handleRemoveAllOrders, handleRemoveO
   };
 
   return (
-    <div className={styles.orderArea}>
+    <div className={styles.cart}>
       <div className={styles.orderItems}>
         {orderMenus.map(order => {
           const { menu, amount } = order;
@@ -73,16 +87,16 @@ export default function Cart({ mainPageRef, handleRemoveAllOrders, handleRemoveO
           결제하기
         </button>
         <span className={styles.timer}>결제하기 버튼을 누르지 않으면 {seconds}초 뒤에 메뉴가 전체 취소돼요!</span>
-        {showPaymentModal &&
-          paymentOption === 'select' &&
-          createPortal(
-            <PaymentModalContent
-              setPaymentOption={setPaymentOption}
-              handlePaymentCancelButtonClick={handlePaymentCancelButtonClick}
-            />,
-            mainPageRef.current!
-          )}
       </div>
+      {showPaymentModal &&
+        createPortal(
+          <PaymentModalContent
+            totalPrice={totalPrice}
+            orderList={orderList}
+            handlePaymentCancelButtonClick={handlePaymentCancelButtonClick}
+          />,
+          mainPageRef.current!
+        )}
     </div>
   );
 }
