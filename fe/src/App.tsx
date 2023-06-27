@@ -9,7 +9,10 @@ export default function App() {
 
 function Router() {
   const [page, setPage] = useState('/');
-  const navigate = (path: string) => setPage(path);
+  const navigate = (path: string) => {
+    setPage(path);
+    window.history.pushState({}, '', path);
+  };
 
   let content;
   const orderId = Number(page.split('/')[3]);
@@ -19,7 +22,6 @@ function Router() {
       content = <Home navigate={navigate} />;
       break;
     }
-
     case `/receipt/orderId/${orderId}`: {
       content = <ReceiptPage orderId={orderId} />;
     }

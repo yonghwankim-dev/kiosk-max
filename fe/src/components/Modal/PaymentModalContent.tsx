@@ -1,8 +1,8 @@
 import { requestCardOrder } from 'api';
+import { LoadingIndicator } from 'components/LoadingIndicator/LoadingIndicator';
 import { MenuOrder } from 'pages/types';
 import { useState } from 'react';
 import modalStyles from './Modal.module.css';
-import { PaymentIndicator } from './PaymentIndicator';
 import styles from './PaymentModalContent.module.css';
 
 interface PaymentModalContentProps {
@@ -72,7 +72,7 @@ export default function PaymentModalContent({
           </div>
         </div>
       )}
-      {isCardPaymentOption && loading && <PaymentIndicator />}
+      {isCardPaymentOption && loading && <LoadingIndicator text="카드 결제중..." />}
       {errorMessage && <div className={styles.errorMessage}>{errorMessage}</div>}
     </div>
   );

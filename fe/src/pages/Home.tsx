@@ -1,50 +1,31 @@
-import { fetchMenus } from 'api';
+import { LoadingIndicator } from 'components/LoadingIndicator/LoadingIndicator';
 import Main from 'components/Main';
 import Cart from 'components/Main/Cart';
 import CategoryNavbar from 'components/Navbar';
+import useProducts from 'hooks/useProducts';
 import menuOrderReducer from 'menuOrderReducer';
-import { useEffect, useMemo, useReducer, useRef, useState } from 'react';
+import { useReducer, useRef, useState } from 'react';
 import { formatAllCategories, formatProducts } from 'utils';
 import styles from './Home.module.css';
 import { CategoryInfo, MenuOrder } from './types';
 
-interface MainPageProps {
+interface HomeProps {
   navigate: (path: string) => void;
 }
 
-export default function MainPage({ navigate }: MainPageProps) {
-  const [products, setProducts] = useState<CategoryInfo[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
-
-  const getMenus = async () => {
-    const menuData = await fetchMenus();
-
-    if (!menuData) {
-      return;
-    }
-
-    setProducts(menuData);
-    setSelectedCategoryId(menuData[0].categoryId);
-  };
-
-  useEffect(() => {
-    getMenus();
-  }, []);
-
+export default function Home({ navigate }: HomeProps) {
   const [selectedCategoryId, setSelectedCategoryId] = useState<number>(0);
+  const [products, loading, error] = useProducts(setSelectedCategoryId);
   const [orderList, dispatch] = useReducer(menuOrderReducer, []);
-  const mainPageRef = useRef<HTMLDivElement>(null);
+  const homeRef = useRef<HTMLDivElement>(null);
 
-  const categoryNavbarInfo = useMemo(
-    () =>
-      products.map((category: CategoryInfo) => {
-        return { categoryId: category.categoryId, categoryName: category.categoryName };
-      }),
-    [products]
-  );
-  const formattedMenuData = useMemo(() => formatAllCategories(products), [products]);
-  const formattedMenus = useMemo(() => formatProducts(products), [products]);
-  const currentMenus = formattedMenuData[selectedCategoryId];
+  console.log('home orderList', orderList);
+  const categoryNavbarInfo = products.map((category: CategoryInfo) => {
+    return { categoryId: category.categoryId, categoryName: category.categoryName };
+  });
+  const formattedMenuData = formatAllCategories(products);
+  const formattedMenus = formatProducts(products);
+  const currentMenus = selectedCategoryId && formattedMenuData[selectedCategoryId];
   const isOrderListEmpty = orderList.length === 0;
 
   const handleCategoryClick = (clickCategoryId: number) => setSelectedCategoryId(clickCategoryId);
@@ -52,8 +33,11 @@ export default function MainPage({ navigate }: MainPageProps) {
   const handleRemoveOrder = (menuId: number) => dispatch({ type: 'REMOVE_ORDER', payload: { menuId: menuId } });
   const handleRemoveAllOrders = () => dispatch({ type: 'RESET' });
 
+  if (loading) return <LoadingIndicator text="메뉴를 불러오는 중입니다. 잠시만 기다려주세요!" />;
+  if (error) return <div>에러가 발생했습니다.</div>;
+
   return (
-    <div ref={mainPageRef} className={styles.home}>
+    <div ref={homeRef} className={styles.home}>
       {selectedCategoryId && (
         <CategoryNavbar
           selectedCategoryId={selectedCategoryId}
@@ -65,7 +49,7 @@ export default function MainPage({ navigate }: MainPageProps) {
       {!isOrderListEmpty && (
         <Cart
           navigate={navigate}
-          mainPageRef={mainPageRef}
+          homeRef={homeRef}
           menus={formattedMenus}
           orderList={orderList}
           handleRemoveOrder={handleRemoveOrder}

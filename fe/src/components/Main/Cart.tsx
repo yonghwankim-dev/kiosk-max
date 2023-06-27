@@ -7,7 +7,7 @@ import styles from './Main.module.css';
 import MenuItem from './MenuItem';
 
 interface CartProps {
-  mainPageRef: React.RefObject<HTMLDivElement>;
+  homeRef: React.RefObject<HTMLDivElement>;
   orderList: MenuOrder[];
   menus: Menus;
   navigate: (path: string) => void;
@@ -17,7 +17,7 @@ interface CartProps {
 
 export default function Cart({
   navigate,
-  mainPageRef,
+  homeRef,
   handleRemoveAllOrders,
   handleRemoveOrder,
   menus,
@@ -104,7 +104,7 @@ export default function Cart({
             orderList={orderList}
             handlePaymentCancelButtonClick={handlePaymentCancelButtonClick}
           />,
-          mainPageRef.current!
+          homeRef.current!
         )}
     </div>
   );

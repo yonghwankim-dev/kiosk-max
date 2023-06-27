@@ -1,10 +1,10 @@
-import styles from './PaymentIndicator.module.css';
+import styles from './LoadingIndicator.module.css';
 
-export function PaymentIndicator() {
+export function LoadingIndicator({ text }: { text: string }) {
   return (
-    <div className={styles.paymentIndicator}>
+    <div className={styles.loadingIndicator}>
       <Indicator />
-      <span>카드 결제중...</span>
+      <span>{text}</span>
     </div>
   );
 }
