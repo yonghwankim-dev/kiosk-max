@@ -5,6 +5,7 @@ interface MenuItemProps {
   menuName: string;
   menuImg: string;
   menuPrice: number;
+  isBest?: boolean;
   hasLarge?: boolean;
   hasSmall?: boolean;
   hasHot?: boolean;
@@ -20,6 +21,7 @@ export default function MenuItem({
   menuName,
   menuImg,
   menuPrice,
+  isBest,
   hasLarge,
   hasSmall,
   hasHot,
@@ -52,6 +54,7 @@ export default function MenuItem({
       }}
       className={styles.menuItem + ' ' + classNames.join(' ')}
     >
+      {isBest && <div className={styles.best}>인기</div>}
       <img src={menuImg} alt={menuName} />
       <span>{menuName}</span>
       <span>{menuPrice}</span>

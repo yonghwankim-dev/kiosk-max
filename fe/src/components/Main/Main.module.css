@@ -9,6 +9,7 @@
 }
 
 .menuItem {
+  position: relative;
   width: 18rem;
   height: 18rem;
   gap: 0.5rem;
@@ -166,16 +167,16 @@
 }
 
 .best {
+  position: absolute;
+  top: -1rem;
+  left: -2rem;
+  width: 4rem;
+  height: 4rem;
   background-image: url('../../../public/assets/icon/best.png');
   background-size: cover;
-  background-repeat: no-repeat;
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 4rem;
-  height: 4rem;
   color: var(--color-white);
-  transform: translate(4rem, 1rem);
   font-weight: var(--font-weight-bold);
-  z-index: 1;
 }
