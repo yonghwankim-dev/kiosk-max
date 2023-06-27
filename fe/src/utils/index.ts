@@ -1,4 +1,4 @@
-import { Categories, CategoryInfo, MenuInfo, MenuOrder, Menus } from 'pages/types';
+import { Categories, CategoryInfo, MenuInfo, MenuOrder, Menus, OrderSuccessInfo } from 'pages/types';
 
 export const formatProducts = (menuData: CategoryInfo[]) => {
   const menus: Menus = {};
@@ -34,4 +34,17 @@ export function formatOrderList(orderList: MenuOrder[]) {
   });
 
   return formattedOrderList;
+}
+
+export function calculateTotalAmount(data: OrderSuccessInfo): Record<string, number> {
+  const AmountByMenu: Record<string, number> = {};
+  data.orderItems.forEach(item => {
+    const { name, amount } = item;
+    if (AmountByMenu[name]) {
+      AmountByMenu[name] += amount;
+    } else {
+      AmountByMenu[name] = amount;
+    }
+  });
+  return AmountByMenu;
 }
