@@ -14,11 +14,11 @@ export interface MenuInfo {
   menuId: number;
   price: number;
   imgUrl: string;
-  isBest: boolean;
-  hasLarge: boolean;
-  hasSmall: boolean;
-  hasHot: boolean;
-  hasIce: boolean;
+  isBest?: boolean;
+  hasLarge: boolean | undefined;
+  hasSmall: boolean | undefined;
+  hasHot: boolean | undefined;
+  hasIce: boolean | undefined;
 }
 
 export interface CategoryInfo {
@@ -39,18 +39,26 @@ interface OrderList {
   totalPrice: number;
 }
 
-interface OrderSuccessInfo {
+export interface OrderSuccessInfo {
   orderId: number;
-  orderItems: MenuOrder[];
-  paymentMethod: 'card' | 'cash';
+  orderNumber: number;
+  orderItems: OrderItem[];
+  paymentMethod: string;
   totalPrice: number;
   receivedPrice: number;
   remainedPrice: number;
-  orderDateTime: string;
+  orderDatetime: string;
 }
 
 export interface OrderResult {
   success: boolean;
   data: { orderId: number };
   errorCode: { status: number; code: string; message: string };
+}
+
+export interface OrderItem {
+  name: string;
+  size: string;
+  temperature: string;
+  amount: number;
 }
