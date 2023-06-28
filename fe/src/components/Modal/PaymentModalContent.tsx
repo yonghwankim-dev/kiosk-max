@@ -1,9 +1,10 @@
 import { requestCardOrder } from 'api';
 import { LoadingIndicator } from 'components/LoadingIndicator/LoadingIndicator';
 import { MenuOrder } from 'pages/types';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import modalStyles from './Modal.module.css';
 import styles from './PaymentModalContent.module.css';
+import useOutsideClick from '../../hooks/useOutsideClick';
 
 interface PaymentModalContentProps {
   totalPrice: number;
@@ -18,6 +19,7 @@ export default function PaymentModalContent({
   navigate,
   orderList,
 }: PaymentModalContentProps) {
+  const paymentModal = useRef<HTMLDivElement>(null);
   const [paymentOption, setPaymentOption] = useState<'card' | 'cash' | 'select'>('select');
   const [loading, setLoading] = useState<boolean>(true);
   const [errorMessage, setErrorMessage] = useState<string>('');
@@ -51,8 +53,10 @@ export default function PaymentModalContent({
     }
   };
 
+  useOutsideClick(paymentModal, handlePaymentCancelButtonClick);
+
   return (
-    <div className={modalStyles.dim}>
+    <div ref={paymentModal} className={modalStyles.dim}>
       {paymentOption === 'select' && (
         <div className={modalStyles.modalContent}>
           <button className={modalStyles.closeButton} onClick={handlePaymentCancelButtonClick}>
