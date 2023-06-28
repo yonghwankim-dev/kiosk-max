@@ -27,22 +27,7 @@ export default function Cart({
   const intervalRef: { current: null | NodeJS.Timer } = useRef(null);
   const [showPaymentModal, setShowPaymentModal] = useState<boolean>(false);
 
-  if (seconds <= 0) {
-    handleRemoveAllOrders();
-  }
-
-  useEffect(() => {
-    intervalRef.current = setInterval(() => {
-      setSeconds(prev => prev - 1);
-    }, 1000);
-
-    return () => clearInterval(intervalRef.current!);
-  }, []);
-
-  useEffect(() => {
-    setSeconds(30);
-  }, [orderList]);
-
+  const formattedSameProduct = formatSameProductIdList(orderList);
   const totalPrice = orderList.reduce((acc, cur) => {
     const { productId, amount } = cur;
     return acc + products[productId].price * amount;
@@ -56,17 +41,34 @@ export default function Cart({
   const handlePaymentCancelButtonClick = () => {
     setShowPaymentModal(false);
     setSeconds(30);
+
     intervalRef.current = setInterval(() => {
       setSeconds(prev => prev - 1);
     }, 1000);
   };
 
-  const formatted = formatSameProductIdList(orderList);
+  useEffect(() => {
+    intervalRef.current = setInterval(() => {
+      setSeconds(prev => prev - 1);
+    }, 1000);
+
+    return () => clearInterval(intervalRef.current!);
+  }, []);
+
+  useEffect(() => {
+    setSeconds(30);
+  }, [orderList]);
+
+  useEffect(() => {
+    if (seconds <= 0) {
+      handleRemoveAllOrders();
+    }
+  }, [seconds]);
 
   return (
     <div className={styles.cart}>
       <div className={styles.orderItems}>
-        {formatted.map(order => {
+        {formattedSameProduct.map(order => {
           const { productId, amount } = order;
           const menu = products[productId];
           return (
@@ -87,14 +89,17 @@ export default function Cart({
         })}
       </div>
       <div className={styles.buttons}>
+        <span>
+          총 결제 금액 <span className={styles.totalPrice}>₩ {totalPrice.toLocaleString('ko-KR')}</span>
+        </span>
+        <span className={styles.timer}>{seconds}초 뒤에 메뉴가 전체 취소돼요!</span>
         <button onClick={handleRemoveAllOrders} className={styles.allCancelButton}>
           전체취소
         </button>
-        <button className={styles.orderButton} onClick={handlePaymentButtonClick}>
-          결제하기
-        </button>
-        <span className={styles.timer}>결제하기 버튼을 누르지 않으면 {seconds}초 뒤에 메뉴가 전체 취소돼요!</span>
       </div>
+      <button className={styles.orderButton} onClick={handlePaymentButtonClick}>
+        결제하기
+      </button>
       {showPaymentModal &&
         createPortal(
           <PaymentModalContent
