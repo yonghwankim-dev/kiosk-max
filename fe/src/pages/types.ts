@@ -44,11 +44,13 @@ export interface OrderSuccessInfo {
   orderId: number;
   orderNumber: number;
   orderProducts: OrderItem[];
-  paymentMethod: string;
-  totalPrice: number;
-  receivedPrice: number;
-  remainedPrice: number;
-  orderDatetime: string;
+  payment: {
+    method: string;
+    totalPrice: number;
+    receivedPrice: number;
+    remainedPrice: number;
+    orderDatetime: string;
+  };
 }
 
 export interface OrderResult {
