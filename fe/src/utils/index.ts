@@ -21,7 +21,7 @@ export const formatAllCategories = (menuData: CategoryInfo[]) => {
   return formattedMenuData;
 };
 
-export function formatSameMenuOrderList(orderList: MenuOrder[]) {
+export function formatSameMenuIdList(orderList: MenuOrder[]) {
   const formattedOrderList: MenuOrder[] = [];
 
   orderList.forEach(order => {
@@ -30,7 +30,7 @@ export function formatSameMenuOrderList(orderList: MenuOrder[]) {
     if (orderItem) {
       orderItem.amount += amount;
     } else {
-      formattedOrderList.push(order);
+      formattedOrderList.push({ ...order });
     }
   });
 
@@ -48,7 +48,7 @@ export function formatMenuOptionOrderList(orderList: MenuOrder[]) {
     if (orderItem) {
       orderItem.amount += amount;
     } else {
-      formattedOrderList.push(order);
+      formattedOrderList.push({ ...order });
     }
   });
 

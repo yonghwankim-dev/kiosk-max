@@ -2,6 +2,7 @@ import PaymentModalContent from 'components/Modal/PaymentModalContent';
 import { MenuOrder, Menus } from 'pages/types';
 import { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
+import { formatSameMenuIdList } from 'utils';
 import styles from './Main.module.css';
 import MenuItem from './MenuItem';
 
@@ -38,6 +39,10 @@ export default function Cart({
     return () => clearInterval(intervalRef.current!);
   }, []);
 
+  useEffect(() => {
+    setSeconds(30);
+  }, [orderList]);
+
   const totalPrice = orderList.reduce((acc, cur) => {
     const { menuId, amount } = cur;
     return acc + menus[menuId].price * amount;
@@ -56,14 +61,16 @@ export default function Cart({
     }, 1000);
   };
 
+  const formatted = formatSameMenuIdList(orderList);
+
   return (
     <div className={styles.cart}>
       <div className={styles.orderItems}>
-        {orderList.map((order, index) => {
+        {formatted.map(order => {
           const { menuId, amount } = order;
           const menu = menus[menuId];
           return (
-            <div key={index} className={styles.itemWrapper}>
+            <div key={menu.menuId} className={styles.itemWrapper}>
               <div className={styles.amount}>{amount}</div>
               <MenuItem
                 classNames={[styles.orderItem]}
