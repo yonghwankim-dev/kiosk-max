@@ -4,7 +4,7 @@ import Cart from 'components/Main/Cart';
 import CategoryNavbar from 'components/Navbar';
 import useProducts from 'hooks/useProducts';
 import menuOrderReducer from 'menuOrderReducer';
-import { useReducer, useRef, useState } from 'react';
+import { useEffect, useReducer, useRef, useState } from 'react';
 import { formatAllCategories, formatProducts } from 'utils';
 import styles from './Home.module.css';
 import { CategoryInfo, ProductOrder } from './types';
@@ -15,7 +15,7 @@ interface HomeProps {
 
 export default function Home({ navigate }: HomeProps) {
   const [selectedCategoryId, setSelectedCategoryId] = useState<number>(0);
-  const [products, loading, error] = useProducts(setSelectedCategoryId);
+  const [products, loading, error] = useProducts();
   const [orderList, dispatch] = useReducer(menuOrderReducer, []);
   const homeRef = useRef<HTMLDivElement>(null);
 
@@ -33,18 +33,22 @@ export default function Home({ navigate }: HomeProps) {
     dispatch({ type: 'REMOVE_ORDER', payload: { productId: productId } });
   const handleRemoveAllOrders = () => dispatch({ type: 'RESET' });
 
+  useEffect(() => {
+    if (!loading) {
+      setSelectedCategoryId(products[0].categoryId);
+    }
+  }, [loading, products]);
+
   if (loading) return <LoadingIndicator text="메뉴를 불러오는 중입니다. 잠시만 기다려주세요!" />;
-  if (error) return <div>에러가 발생했습니다.</div>;
+  if (error) return <div>{error}</div>;
 
   return (
     <div ref={homeRef} className={styles.home}>
-      {selectedCategoryId && (
-        <CategoryNavbar
-          selectedCategoryId={selectedCategoryId}
-          categories={categoryNavbarInfo}
-          handleCategoryClick={handleCategoryClick}
-        />
-      )}
+      <CategoryNavbar
+        selectedCategoryId={selectedCategoryId}
+        categories={categoryNavbarInfo}
+        handleCategoryClick={handleCategoryClick}
+      />
       {currentMenus && <Main handleAddOrder={handleAddOrder} products={currentMenus.products} />}
       {!isOrderListEmpty && (
         <Cart

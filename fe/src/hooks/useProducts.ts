@@ -2,9 +2,7 @@ import { fetchMenus } from 'api';
 import { CategoryInfo } from 'pages/types';
 import { useEffect, useState } from 'react';
 
-export default function useProducts(
-  setSelectedCategoryId: React.Dispatch<React.SetStateAction<number>>
-): [CategoryInfo[], boolean, string | undefined] {
+export default function useProducts(): [CategoryInfo[], boolean, string | undefined] {
   const [products, setProducts] = useState<CategoryInfo[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | undefined>(undefined);
@@ -20,11 +18,10 @@ export default function useProducts(
       }
 
       setProducts(productData);
-      setSelectedCategoryId(productData[0].categoryId);
     };
 
     getProducts();
-  }, [setSelectedCategoryId]);
+  }, []);
 
   return [products, loading, error];
 }

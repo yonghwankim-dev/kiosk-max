@@ -14,6 +14,8 @@ function Router() {
     window.history.pushState({}, '', path);
   };
 
+  const goHome = () => navigate('/');
+
   let content;
   const orderId = Number(page.split('/')[3]);
 
@@ -23,7 +25,7 @@ function Router() {
       break;
     }
     case `/receipt/orderId/${orderId}`: {
-      content = <ReceiptPage orderId={orderId} />;
+      content = <ReceiptPage orderId={orderId} goHome={goHome} />;
     }
   }
   return <div className="App">{content}</div>;
