@@ -176,16 +176,18 @@ interface AddButtonProps {
 }
 
 function AddButton({ closeOrderModal, sendOrderData, handleAddOrder, selectedSize, selectedTemp }: AddButtonProps) {
+  const isDisabled = selectedSize === '' || selectedTemp === '';
+  const handleAddButtonClick = () => {
+    closeOrderModal();
+    sendOrderData(handleAddOrder);
+  };
+
   return (
     <button
-      className={styles.addButton}
+      className={`${styles.addButton} ${styles.disabled}`}
       type="button"
-      onClick={() => {
-        if (selectedSize !== '' && selectedTemp !== '') {
-          closeOrderModal();
-          sendOrderData(handleAddOrder);
-        }
-      }}
+      disabled={isDisabled}
+      onClick={handleAddButtonClick}
     >
       담기
     </button>
