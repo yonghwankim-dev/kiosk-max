@@ -1,11 +1,23 @@
 import styles from './ReceiptPage.module.css';
+import { fetchReceipt } from '../api';
 import Receipt from 'components/Receipt/Receipt';
-import { OrderSuccessInfo } from './types';
 import { useEffect, useRef, useState } from 'react';
 
 export default function ReceiptPage({ orderId }: { orderId: number }) {
+  const [data, setData] = useState(undefined);
   const [seconds, setSeconds] = useState(10);
   const intervalRef: { current: null | NodeJS.Timer } = useRef(null);
+
+  const getReceipt = async () => {
+    const fetchedReceipt = await fetchReceipt(orderId);
+
+    if (!fetchedReceipt) return;
+    setData(fetchedReceipt);
+  };
+
+  useEffect(() => {
+    getReceipt();
+  }, []);
 
   useEffect(() => {
     intervalRef.current = setInterval(() => {
@@ -15,18 +27,19 @@ export default function ReceiptPage({ orderId }: { orderId: number }) {
     return () => clearInterval(intervalRef.current!);
   }, []);
 
-  if (seconds <= 0) {
-    handleRefreshPage();
-  }
+  useEffect(() => {
+    if (seconds <= 0) {
+      handleRefreshPage();
+    }
+  }, [seconds]);
 
   function handleRefreshPage() {
-    // 페이지가 새로고침되어 초기 화면이 보이는 로직
     window.location.reload();
   }
 
   return (
     <div className={styles.receiptPage}>
-      {/* <Receipt data={orderSuccessInfo} /> */}
+      {data && <Receipt data={data} />}
       <span className={styles.timerInfo}>(주의: 이 화면은 10초 뒤에 자동으로 사라집니다)</span>
       <span className={styles.seconds}>{`${seconds}초`}</span>
     </div>
