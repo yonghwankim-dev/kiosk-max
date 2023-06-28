@@ -12,14 +12,14 @@ interface MainProps {
 }
 
 export default function Main({ handleAddOrder, products }: MainProps) {
-  const orderModal = useRef<HTMLDivElement>(null);
+  const outsideModal = useRef<HTMLDivElement>(null);
   const [isOrderModalOpen, setOrderModal] = useState<boolean>(false);
   const [selectedMenu, setSelectedMenu] = useState<ProductInfo | undefined>(undefined);
 
   const openOrderModal = () => setOrderModal(true);
   const closeOrderModal = () => setOrderModal(false);
 
-  useOutsideClick(orderModal, closeOrderModal);
+  useOutsideClick(outsideModal, closeOrderModal);
 
   return (
     <div className={styles.main}>
@@ -40,7 +40,7 @@ export default function Main({ handleAddOrder, products }: MainProps) {
         />
       ))}
       {isOrderModalOpen && selectedMenu && (
-        <div ref={orderModal} className={`${ModalStyles.dim} ${styles.mainDim}`}>
+        <div ref={outsideModal} className={`${ModalStyles.dim} ${styles.mainDim}`}>
           <OrderModal handleAddOrder={handleAddOrder} menu={selectedMenu} closeOrderModal={closeOrderModal} />
         </div>
       )}
