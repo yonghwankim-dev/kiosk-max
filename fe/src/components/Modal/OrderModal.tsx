@@ -1,4 +1,5 @@
 import MenuItem from 'components/Main/MenuItem';
+import Button from 'components/atoms/Button';
 import { ProductInfo, ProductOrder } from 'pages/types';
 import { useState } from 'react';
 import ModalStyles from './Modal.module.css';
@@ -113,10 +114,22 @@ function SizeOption({ hasSmall, hasLarge, selectedSize, setSelectedSize }: SizeO
   return (
     <div className={hasSmall && hasLarge ? styles.dualButtonWrap : styles.singleButtonWrap}>
       {hasSmall && (
-        <OptionButton label={'Small'} isSelected={selectedSize === 'Small'} onClick={() => setSelectedSize('Small')} />
+        <Button
+          label={'Small'}
+          className={styles.optionButton}
+          isSelected={selectedSize === 'Small'}
+          selectedClassName={styles.selected}
+          onClick={() => setSelectedSize('Small')}
+        />
       )}
       {hasLarge && (
-        <OptionButton label={'Large'} isSelected={selectedSize === 'Large'} onClick={() => setSelectedSize('Large')} />
+        <Button
+          label={'Large'}
+          className={styles.optionButton}
+          isSelected={selectedSize === 'Large'}
+          selectedClassName={styles.selected}
+          onClick={() => setSelectedSize('Large')}
+        />
       )}
     </div>
   );
@@ -133,10 +146,22 @@ function TempOption({ hasHot, hasIce, selectedTemp, setSelectedTemp }: TempOptio
   return (
     <div className={hasHot && hasIce ? styles.dualButtonWrap : styles.singleButtonWrap}>
       {hasHot && (
-        <OptionButton label={'Hot'} isSelected={selectedTemp === 'Hot'} onClick={() => setSelectedTemp('Hot')} />
+        <Button
+          label={'Hot'}
+          className={styles.optionButton}
+          isSelected={selectedTemp === 'Hot'}
+          selectedClassName={styles.selected}
+          onClick={() => setSelectedTemp('Hot')}
+        />
       )}
       {hasIce && (
-        <OptionButton label={'Ice'} isSelected={selectedTemp === 'Ice'} onClick={() => setSelectedTemp('Ice')} />
+        <Button
+          label={'Ice'}
+          className={styles.optionButton}
+          isSelected={selectedTemp === 'Ice'}
+          selectedClassName={styles.selected}
+          onClick={() => setSelectedTemp('Ice')}
+        />
       )}
     </div>
   );
@@ -190,20 +215,6 @@ function AddButton({ closeOrderModal, sendOrderData, handleAddOrder, selectedSiz
       onClick={handleAddButtonClick}
     >
       담기
-    </button>
-  );
-}
-
-interface OptionButtonProps {
-  label: string;
-  isSelected: boolean;
-  onClick: () => void;
-}
-
-function OptionButton({ label, isSelected, onClick }: OptionButtonProps) {
-  return (
-    <button onClick={onClick} className={`${styles.optionButton} ${isSelected ? `${styles.selected}` : ''}`}>
-      {label}
     </button>
   );
 }
