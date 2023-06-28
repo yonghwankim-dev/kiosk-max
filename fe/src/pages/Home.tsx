@@ -19,7 +19,6 @@ export default function Home({ navigate }: HomeProps) {
   const [orderList, dispatch] = useReducer(menuOrderReducer, []);
   const homeRef = useRef<HTMLDivElement>(null);
 
-  console.log('home orderList', orderList);
   const categoryNavbarInfo = products.map((category: CategoryInfo) => {
     return { categoryId: category.categoryId, categoryName: category.categoryName };
   });

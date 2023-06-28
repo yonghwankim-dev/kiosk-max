@@ -13,7 +13,6 @@ interface MenuItemProps {
   classNames?: string[];
   openOrderModal?: () => void;
   setSelectedMenu?: any;
-  handleMenuItemClick?: (menuName: string) => void;
 }
 
 export default function MenuItem({
@@ -28,7 +27,6 @@ export default function MenuItem({
   hasIce,
   openOrderModal,
   setSelectedMenu,
-  handleMenuItemClick,
   classNames = [],
 }: MenuItemProps) {
   const clickMenu = () => {
@@ -50,7 +48,6 @@ export default function MenuItem({
     <div
       onClick={() => {
         clickMenu();
-        handleMenuItemClick && handleMenuItemClick(menuName);
       }}
       className={styles.menuItem + ' ' + classNames.join(' ')}
     >
