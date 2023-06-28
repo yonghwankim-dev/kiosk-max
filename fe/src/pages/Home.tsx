@@ -7,7 +7,7 @@ import menuOrderReducer from 'menuOrderReducer';
 import { useReducer, useRef, useState } from 'react';
 import { formatAllCategories, formatProducts } from 'utils';
 import styles from './Home.module.css';
-import { CategoryInfo, MenuOrder } from './types';
+import { CategoryInfo, ProductOrder } from './types';
 
 interface HomeProps {
   navigate: (path: string) => void;
@@ -28,8 +28,9 @@ export default function Home({ navigate }: HomeProps) {
   const isOrderListEmpty = orderList.length === 0;
 
   const handleCategoryClick = (clickCategoryId: number) => setSelectedCategoryId(clickCategoryId);
-  const handleAddOrder = (menuOrder: MenuOrder) => dispatch({ type: 'ADD_ORDER', payload: { newOrder: menuOrder } });
-  const handleRemoveOrder = (menuId: number) => dispatch({ type: 'REMOVE_ORDER', payload: { menuId: menuId } });
+  const handleAddOrder = (menuOrder: ProductOrder) => dispatch({ type: 'ADD_ORDER', payload: { newOrder: menuOrder } });
+  const handleRemoveOrder = (productId: number) =>
+    dispatch({ type: 'REMOVE_ORDER', payload: { productId: productId } });
   const handleRemoveAllOrders = () => dispatch({ type: 'RESET' });
 
   if (loading) return <LoadingIndicator text="메뉴를 불러오는 중입니다. 잠시만 기다려주세요!" />;
@@ -44,12 +45,12 @@ export default function Home({ navigate }: HomeProps) {
           handleCategoryClick={handleCategoryClick}
         />
       )}
-      {currentMenus && <Main handleAddOrder={handleAddOrder} menus={currentMenus.menus} />}
+      {currentMenus && <Main handleAddOrder={handleAddOrder} products={currentMenus.products} />}
       {!isOrderListEmpty && (
         <Cart
           navigate={navigate}
           homeRef={homeRef}
-          menus={formattedMenus}
+          products={formattedMenus}
           orderList={orderList}
           handleRemoveOrder={handleRemoveOrder}
           handleRemoveAllOrders={handleRemoveAllOrders}

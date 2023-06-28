@@ -1,7 +1,7 @@
 import styles from './Main.module.css';
 
 interface MenuItemProps {
-  menuId: number;
+  productId: number;
   menuName: string;
   menuImg: string;
   menuPrice: number;
@@ -16,7 +16,7 @@ interface MenuItemProps {
 }
 
 export default function MenuItem({
-  menuId,
+  productId,
   menuName,
   menuImg,
   menuPrice,
@@ -33,7 +33,7 @@ export default function MenuItem({
     setSelectedMenu &&
       setSelectedMenu({
         name: menuName,
-        menuId: menuId,
+        productId: productId,
         price: menuPrice,
         imgUrl: menuImg,
         hasLarge: hasLarge,

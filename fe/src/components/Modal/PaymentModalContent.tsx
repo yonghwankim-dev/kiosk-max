@@ -1,16 +1,16 @@
 import { requestCardOrder } from 'api';
 import { LoadingIndicator } from 'components/LoadingIndicator/LoadingIndicator';
-import { MenuOrder } from 'pages/types';
-import { useState, useRef } from 'react';
+import { ProductOrder } from 'pages/types';
+import { useRef, useState } from 'react';
+import useOutsideClick from '../../hooks/useOutsideClick';
 import modalStyles from './Modal.module.css';
 import styles from './PaymentModalContent.module.css';
-import useOutsideClick from '../../hooks/useOutsideClick';
 
 interface PaymentModalContentProps {
   totalPrice: number;
   handlePaymentCancelButtonClick: () => void;
   navigate: (path: string) => void;
-  orderList: MenuOrder[];
+  orderList: ProductOrder[];
 }
 
 export default function PaymentModalContent({

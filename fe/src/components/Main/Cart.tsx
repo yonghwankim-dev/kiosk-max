@@ -1,17 +1,17 @@
 import PaymentModalContent from 'components/Modal/PaymentModalContent';
-import { MenuOrder, Menus } from 'pages/types';
+import { ProductOrder, Products } from 'pages/types';
 import { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
-import { formatSameMenuIdList } from 'utils';
+import { formatSameProductIdList } from 'utils';
 import styles from './Main.module.css';
 import MenuItem from './MenuItem';
 
 interface CartProps {
   homeRef: React.RefObject<HTMLDivElement>;
-  orderList: MenuOrder[];
-  menus: Menus;
+  orderList: ProductOrder[];
+  products: Products;
   navigate: (path: string) => void;
-  handleRemoveOrder: (menuId: number) => void;
+  handleRemoveOrder: (productId: number) => void;
   handleRemoveAllOrders: () => void;
 }
 
@@ -20,7 +20,7 @@ export default function Cart({
   homeRef,
   handleRemoveAllOrders,
   handleRemoveOrder,
-  menus,
+  products,
   orderList,
 }: CartProps) {
   const [seconds, setSeconds] = useState(30);
@@ -44,8 +44,8 @@ export default function Cart({
   }, [orderList]);
 
   const totalPrice = orderList.reduce((acc, cur) => {
-    const { menuId, amount } = cur;
-    return acc + menus[menuId].price * amount;
+    const { productId, amount } = cur;
+    return acc + products[productId].price * amount;
   }, 0);
 
   const handlePaymentButtonClick = () => {
@@ -61,25 +61,25 @@ export default function Cart({
     }, 1000);
   };
 
-  const formatted = formatSameMenuIdList(orderList);
+  const formatted = formatSameProductIdList(orderList);
 
   return (
     <div className={styles.cart}>
       <div className={styles.orderItems}>
         {formatted.map(order => {
-          const { menuId, amount } = order;
-          const menu = menus[menuId];
+          const { productId, amount } = order;
+          const menu = products[productId];
           return (
-            <div key={menu.menuId} className={styles.itemWrapper}>
+            <div key={menu.productId} className={styles.itemWrapper}>
               <div className={styles.amount}>{amount}</div>
               <MenuItem
                 classNames={[styles.orderItem]}
-                menuId={menu.menuId}
+                productId={menu.productId}
                 menuName={menu.name}
                 menuImg={menu.imgUrl}
                 menuPrice={menu.price}
               />
-              <button className={styles.menuCancelButton} onClick={() => handleRemoveOrder(menu.menuId)}>
+              <button className={styles.menuCancelButton} onClick={() => handleRemoveOrder(menu.productId)}>
                 X
               </button>
             </div>

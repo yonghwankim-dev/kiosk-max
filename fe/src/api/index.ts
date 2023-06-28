@@ -1,7 +1,7 @@
-import { CategoryInfo, MenuOrder, OrderResult } from 'pages/types';
+import { CategoryInfo, OrderResult, ProductOrder } from 'pages/types';
 import { formatMenuOptionOrderList } from 'utils';
 
-const BASE_API_DOMAIN = new URL(`https://fe1d8da8-5689-43fa-aded-fab009d85f8a.mock.pstmn.io/`);
+const BASE_API_DOMAIN = new URL(`https://59e962f7-9105-47c3-9543-c5b5b596f0e7.mock.pstmn.io`);
 
 const fetchJSON = async (url: URL, option?: {}) => {
   const response = await fetch(url, option);
@@ -23,7 +23,7 @@ export const fetchMenus = async (): Promise<CategoryInfo[] | undefined> => {
 };
 
 export const requestCardOrder = async (
-  orderList: MenuOrder[],
+  orderList: ProductOrder[],
   totalPrice: number
 ): Promise<OrderResult | undefined> => {
   const formattedOrderList = formatMenuOptionOrderList(orderList);
@@ -56,7 +56,10 @@ export const fetchReceipt = async (orderId: number) => {
   }
 };
 
-export const failCardOrder = async (orderList: MenuOrder[], totalPrice: number): Promise<OrderResult | undefined> => {
+export const failCardOrder = async (
+  orderList: ProductOrder[],
+  totalPrice: number
+): Promise<OrderResult | undefined> => {
   const formattedOrderList = formatMenuOptionOrderList(orderList);
   const json = JSON.stringify({
     orderItems: formattedOrderList,

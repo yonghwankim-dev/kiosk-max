@@ -1,22 +1,23 @@
 import MenuItem from 'components/Main/MenuItem';
-import { MenuInfo, MenuOrder } from 'pages/types';
+import { ProductInfo, ProductOrder } from 'pages/types';
 import { useState } from 'react';
 import ModalStyles from './Modal.module.css';
 import styles from './OrderModal.module.css';
 
 interface OrderModalProps {
-  menu: MenuInfo;
+  menu: ProductInfo;
   closeOrderModal: () => void;
-  handleAddOrder: (menuOrder: MenuOrder) => void;
+  handleAddOrder: (menuOrder: ProductOrder) => void;
 }
 
 export default function OrderModal({ menu, closeOrderModal, handleAddOrder }: OrderModalProps) {
   const [selectedSize, setSelectedSize] = useState('');
   const [selectedTemp, setSelectedTemp] = useState('');
   const [amount, setAmount] = useState(1);
-  const sendOrderData = (handleAddOrder: (menuOrder: MenuOrder) => void) => {
+  const sendOrderData = (handleAddOrder: (menuOrder: ProductOrder) => void) => {
     const orderData = {
-      menuId: menu.menuId,
+      productId: menu.productId,
+      name: menu.name,
       size: selectedSize,
       temperature: selectedTemp,
       amount: amount,
@@ -29,7 +30,7 @@ export default function OrderModal({ menu, closeOrderModal, handleAddOrder }: Or
       <CloseButton closeOrderModal={closeOrderModal} />
       <div className={styles.contents}>
         <MenuItem
-          menuId={menu.menuId}
+          productId={menu.productId}
           menuName={menu.name}
           menuImg={menu.imgUrl}
           menuPrice={menu.price}
@@ -168,8 +169,8 @@ function AmountCounter({ amount, setAmount }: AmountCounterProps) {
 
 interface AddButtonProps {
   closeOrderModal: () => void;
-  sendOrderData: (handleAddOrder: (menuOrder: MenuOrder) => void) => void;
-  handleAddOrder: (menuOrder: MenuOrder) => void;
+  sendOrderData: (handleAddOrder: (menuOrder: ProductOrder) => void) => void;
+  handleAddOrder: (menuOrder: ProductOrder) => void;
   selectedSize: string;
   selectedTemp: string;
 }

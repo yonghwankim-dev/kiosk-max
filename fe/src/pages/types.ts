@@ -1,17 +1,17 @@
-type MenuId = number;
+type ProductId = number;
 type CategoryId = number;
 
-export interface Menus {
-  [key: MenuId]: MenuInfo;
+export interface Products {
+  [key: ProductId]: ProductInfo;
 }
 
 export interface Categories {
   [key: CategoryId]: CategoryInfo;
 }
 
-export interface MenuInfo {
+export interface ProductInfo {
   name: string;
-  menuId: number;
+  productId: number;
   price: number;
   imgUrl: string;
   isBest?: boolean;
@@ -24,25 +24,26 @@ export interface MenuInfo {
 export interface CategoryInfo {
   categoryName: string;
   categoryId: number;
-  menus: MenuInfo[];
+  products: ProductInfo[];
 }
 
-export interface MenuOrder {
-  menuId: number;
+export interface ProductOrder {
+  productId: number;
+  name: string;
   size: string;
   temperature: string;
   amount: number;
 }
 
 interface OrderList {
-  orderItems: MenuOrder[];
+  orderItems: ProductOrder[];
   totalPrice: number;
 }
 
 export interface OrderSuccessInfo {
   orderId: number;
   orderNumber: number;
-  orderItems: OrderItem[];
+  orderProducts: OrderItem[];
   paymentMethod: string;
   totalPrice: number;
   receivedPrice: number;
