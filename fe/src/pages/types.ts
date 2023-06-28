@@ -1,20 +1,20 @@
-type MenuId = number;
+type ProductId = number;
 type CategoryId = number;
 
-export interface Menus {
-  [key: MenuId]: MenuInfo;
+export interface Products {
+  [key: ProductId]: ProductInfo;
 }
 
 export interface Categories {
   [key: CategoryId]: CategoryInfo;
 }
 
-export interface MenuInfo {
+export interface ProductInfo {
   name: string;
-  menuId: number;
+  productId: number;
   price: number;
   imgUrl: string;
-  isBest: boolean;
+  isBest?: boolean;
   hasLarge: boolean;
   hasSmall: boolean;
   hasHot: boolean;
@@ -24,32 +24,44 @@ export interface MenuInfo {
 export interface CategoryInfo {
   categoryName: string;
   categoryId: number;
-  menus: MenuInfo[];
+  products: ProductInfo[];
 }
 
-export interface MenuOrder {
-  menuId: number;
+export interface ProductOrder {
+  productId: number;
+  name: string;
   size: string;
   temperature: string;
   amount: number;
 }
 
 interface OrderList {
-  orderItems: MenuOrder[];
+  orderItems: ProductOrder[];
   totalPrice: number;
 }
 
-interface OrderSuccessInfo {
+export interface OrderSuccessInfo {
   orderId: number;
-  orderItems: MenuOrder[];
-  paymentMethod: 'card' | 'cash';
-  totalPrice: number;
-  receivedPrice: number;
-  remainedPrice: number;
-  orderDateTime: string;
+  orderNumber: number;
+  orderProducts: OrderItem[];
+  payment: {
+    method: string;
+    totalPrice: number;
+    receivedPrice: number;
+    remainedPrice: number;
+    orderDatetime: string;
+  };
 }
 
-interface OrderResult {
+export interface OrderResult {
   success: boolean;
+  data: { orderId: number };
   errorCode: { status: number; code: string; message: string };
+}
+
+export interface OrderItem {
+  name: string;
+  size: string;
+  temperature: string;
+  amount: number;
 }

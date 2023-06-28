@@ -1,11 +1,12 @@
-.paymentIndicator {
+.loadingIndicator {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   gap: 40px;
 }
 
-.paymentIndicator span {
+.loadingIndicator span {
   color: #e9d78d;
   font-family: var(--font-family);
   font-weight: var(--font-weight-bold);
@@ -19,10 +20,12 @@
   width: 80px;
   height: 80px;
 }
+
 .indicatorWrap div {
   transform-origin: 40px 40px;
   animation: indicator 1.2s linear infinite;
 }
+
 .indicatorWrap div:after {
   content: ' ';
   display: block;

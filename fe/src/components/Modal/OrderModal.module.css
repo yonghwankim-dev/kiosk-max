@@ -70,3 +70,9 @@
   font-weight: var(--font-weight-bold);
   font-size: var(--font-size-display);
 }
+
+.addButton:disabled {
+  background-color: var(--color-gray-100);
+  color: var(--color-gray-200);
+  cursor: default;
+}

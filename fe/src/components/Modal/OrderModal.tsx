@@ -1,40 +1,24 @@
 import MenuItem from 'components/Main/MenuItem';
-import { MenuOrder } from 'pages/types';
+import Button from 'components/atoms/Button';
+import { ProductInfo, ProductOrder } from 'pages/types';
 import { useState } from 'react';
 import ModalStyles from './Modal.module.css';
 import styles from './OrderModal.module.css';
 
-interface MenuInfo {
-  name: string;
-  menuId: number;
-  price: number;
-  imgUrl: string;
-  isBest: boolean;
-  hasLarge: boolean;
-  hasSmall: boolean;
-  hasHot: boolean;
-  hasIce: boolean;
-}
-
-interface OrderDataInfo {
-  menuId: number;
-  size: string;
-  temperature: string;
-  amount: number;
-}
 interface OrderModalProps {
-  menu: MenuInfo;
+  menu: ProductInfo;
   closeOrderModal: () => void;
-  handleAddOrder: (menuOrder: OrderDataInfo) => void;
+  handleAddOrder: (menuOrder: ProductOrder) => void;
 }
 
 export default function OrderModal({ menu, closeOrderModal, handleAddOrder }: OrderModalProps) {
   const [selectedSize, setSelectedSize] = useState('');
   const [selectedTemp, setSelectedTemp] = useState('');
   const [amount, setAmount] = useState(1);
-  const sendOrderData = (handleAddOrder: (menuOrder: MenuOrder) => void) => {
+  const sendOrderData = (handleAddOrder: (menuOrder: ProductOrder) => void) => {
     const orderData = {
-      menuId: menu.menuId,
+      productId: menu.productId,
+      name: menu.name,
       size: selectedSize,
       temperature: selectedTemp,
       amount: amount,
@@ -47,7 +31,7 @@ export default function OrderModal({ menu, closeOrderModal, handleAddOrder }: Or
       <CloseButton closeOrderModal={closeOrderModal} />
       <div className={styles.contents}>
         <MenuItem
-          menuId={menu.menuId}
+          productId={menu.productId}
           menuName={menu.name}
           menuImg={menu.imgUrl}
           menuPrice={menu.price}
@@ -130,10 +114,22 @@ function SizeOption({ hasSmall, hasLarge, selectedSize, setSelectedSize }: SizeO
   return (
     <div className={hasSmall && hasLarge ? styles.dualButtonWrap : styles.singleButtonWrap}>
       {hasSmall && (
-        <OptionButton label={'Small'} isSelected={selectedSize === 'Small'} onClick={() => setSelectedSize('Small')} />
+        <Button
+          label={'Small'}
+          className={styles.optionButton}
+          isSelected={selectedSize === 'Small'}
+          selectedClassName={styles.selected}
+          onClick={() => setSelectedSize('Small')}
+        />
       )}
       {hasLarge && (
-        <OptionButton label={'Large'} isSelected={selectedSize === 'Large'} onClick={() => setSelectedSize('Large')} />
+        <Button
+          label={'Large'}
+          className={styles.optionButton}
+          isSelected={selectedSize === 'Large'}
+          selectedClassName={styles.selected}
+          onClick={() => setSelectedSize('Large')}
+        />
       )}
     </div>
   );
@@ -150,10 +146,22 @@ function TempOption({ hasHot, hasIce, selectedTemp, setSelectedTemp }: TempOptio
   return (
     <div className={hasHot && hasIce ? styles.dualButtonWrap : styles.singleButtonWrap}>
       {hasHot && (
-        <OptionButton label={'Hot'} isSelected={selectedTemp === 'Hot'} onClick={() => setSelectedTemp('Hot')} />
+        <Button
+          label={'Hot'}
+          className={styles.optionButton}
+          isSelected={selectedTemp === 'Hot'}
+          selectedClassName={styles.selected}
+          onClick={() => setSelectedTemp('Hot')}
+        />
       )}
       {hasIce && (
-        <OptionButton label={'Ice'} isSelected={selectedTemp === 'Ice'} onClick={() => setSelectedTemp('Ice')} />
+        <Button
+          label={'Ice'}
+          className={styles.optionButton}
+          isSelected={selectedTemp === 'Ice'}
+          selectedClassName={styles.selected}
+          onClick={() => setSelectedTemp('Ice')}
+        />
       )}
     </div>
   );
@@ -186,39 +194,27 @@ function AmountCounter({ amount, setAmount }: AmountCounterProps) {
 
 interface AddButtonProps {
   closeOrderModal: () => void;
-  sendOrderData: (handleAddOrder: (menuOrder: MenuOrder) => void) => void;
-  handleAddOrder: (menuOrder: MenuOrder) => void;
+  sendOrderData: (handleAddOrder: (menuOrder: ProductOrder) => void) => void;
+  handleAddOrder: (menuOrder: ProductOrder) => void;
   selectedSize: string;
   selectedTemp: string;
 }
 
 function AddButton({ closeOrderModal, sendOrderData, handleAddOrder, selectedSize, selectedTemp }: AddButtonProps) {
+  const isDisabled = selectedSize === '' || selectedTemp === '';
+  const handleAddButtonClick = () => {
+    closeOrderModal();
+    sendOrderData(handleAddOrder);
+  };
+
   return (
     <button
-      className={styles.addButton}
+      className={`${styles.addButton} ${styles.disabled}`}
       type="button"
-      onClick={() => {
-        if (selectedSize !== '' && selectedTemp !== '') {
-          closeOrderModal();
-          sendOrderData(handleAddOrder);
-        }
-      }}
+      disabled={isDisabled}
+      onClick={handleAddButtonClick}
     >
       담기
-    </button>
-  );
-}
-
-interface OptionButtonProps {
-  label: string;
-  isSelected: boolean;
-  onClick: () => void;
-}
-
-function OptionButton({ label, isSelected, onClick }: OptionButtonProps) {
-  return (
-    <button onClick={onClick} className={`${styles.optionButton} ${isSelected ? `${styles.selected}` : ''}`}>
-      {label}
     </button>
   );
 }

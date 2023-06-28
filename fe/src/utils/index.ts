@@ -1,15 +1,15 @@
-import { Categories, CategoryInfo, MenuInfo, MenuOrder, Menus } from 'pages/types';
+import { Categories, CategoryInfo, OrderSuccessInfo, ProductInfo, ProductOrder, Products } from 'pages/types';
 
 export const formatProducts = (menuData: CategoryInfo[]) => {
-  const menus: Menus = {};
+  const products: Products = {};
 
   menuData.forEach((category: CategoryInfo) => {
-    category.menus.forEach((menu: MenuInfo) => {
-      menus[menu.menuId] = menu;
+    category.products.forEach((product: ProductInfo) => {
+      products[product.productId] = product;
     });
   });
 
-  return menus;
+  return products;
 };
 
 export const formatAllCategories = (menuData: CategoryInfo[]) => {
@@ -21,17 +21,49 @@ export const formatAllCategories = (menuData: CategoryInfo[]) => {
   return formattedMenuData;
 };
 
-export function formatOrderList(orderList: MenuOrder[]) {
-  const formattedOrderList: MenuOrder[] = [];
+export function formatSameProductIdList(orderList: ProductOrder[]) {
+  const formattedOrderList: ProductOrder[] = [];
+
   orderList.forEach(order => {
-    const { menuId, size, temperature, amount } = order;
-    const orderItem = formattedOrderList.find(item => item.menuId === menuId);
+    const { productId, amount } = order;
+    const orderItem = formattedOrderList.find(item => item.productId === productId);
     if (orderItem) {
       orderItem.amount += amount;
     } else {
-      formattedOrderList.push({ menuId, size, temperature, amount });
+      formattedOrderList.push({ ...order });
     }
   });
 
   return formattedOrderList;
+}
+
+export function formatMenuOptionOrderList(orderList: ProductOrder[]) {
+  const formattedOrderList: ProductOrder[] = [];
+
+  orderList.forEach(order => {
+    const { productId, size, temperature, amount } = order;
+    const orderItem = formattedOrderList.find(
+      item => item.productId === productId && item.size === size && item.temperature === temperature
+    );
+    if (orderItem) {
+      orderItem.amount += amount;
+    } else {
+      formattedOrderList.push({ ...order });
+    }
+  });
+
+  return formattedOrderList;
+}
+
+export function calculateTotalAmount(data: OrderSuccessInfo): Record<string, number> {
+  const AmountByMenu: Record<string, number> = {};
+  data.orderProducts.forEach(item => {
+    const { name, amount } = item;
+    if (AmountByMenu[name]) {
+      AmountByMenu[name] += amount;
+    } else {
+      AmountByMenu[name] = amount;
+    }
+  });
+  return AmountByMenu;
 }
