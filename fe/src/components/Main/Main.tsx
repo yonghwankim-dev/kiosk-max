@@ -12,25 +12,10 @@ interface MainProps {
 
 export default function Main({ handleAddOrder, menus }: MainProps) {
   const [isOrderModalOpen, setOrderModal] = useState<boolean>(false);
-  const [selectedMenu, setSelectedMenu] = useState<MenuInfo>({
-    name: '',
-    menuId: 0,
-    price: 0,
-    imgUrl: '',
-    isBest: true,
-    hasLarge: true,
-    hasSmall: true,
-    hasHot: true,
-    hasIce: true,
-  });
+  const [selectedMenu, setSelectedMenu] = useState<MenuInfo | undefined>(undefined);
 
-  const openOrderModal = () => {
-    setOrderModal(true);
-  };
-
-  const closeOrderModal = () => {
-    setOrderModal(false);
-  };
+  const openOrderModal = () => setOrderModal(true);
+  const closeOrderModal = () => setOrderModal(false);
 
   return (
     <div className={styles.main}>
@@ -50,7 +35,7 @@ export default function Main({ handleAddOrder, menus }: MainProps) {
           setSelectedMenu={setSelectedMenu}
         />
       ))}
-      {isOrderModalOpen && (
+      {isOrderModalOpen && selectedMenu && (
         <div className={ModalStyles.dim}>
           <OrderModal handleAddOrder={handleAddOrder} menu={selectedMenu} closeOrderModal={closeOrderModal} />
         </div>

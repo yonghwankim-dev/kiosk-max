@@ -1,8 +1,7 @@
 import PaymentModalContent from 'components/Modal/PaymentModalContent';
 import { MenuOrder, Menus } from 'pages/types';
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
-import { formatSameMenuOrderList } from 'utils';
 import styles from './Main.module.css';
 import MenuItem from './MenuItem';
 
@@ -27,6 +26,10 @@ export default function Cart({
   const intervalRef: { current: null | NodeJS.Timer } = useRef(null);
   const [showPaymentModal, setShowPaymentModal] = useState<boolean>(false);
 
+  if (seconds <= 0) {
+    handleRemoveAllOrders();
+  }
+
   useEffect(() => {
     intervalRef.current = setInterval(() => {
       setSeconds(prev => prev - 1);
@@ -35,22 +38,10 @@ export default function Cart({
     return () => clearInterval(intervalRef.current!);
   }, []);
 
-  if (seconds <= 0) {
-    handleRemoveAllOrders();
-  }
-
-  const formattedOrderList = useMemo(() => formatSameMenuOrderList(orderList), [orderList]);
-  const orderMenus = formattedOrderList.map(order => {
-    const { menuId, amount } = order;
-    const menu = menus[menuId];
-    return { menu, amount };
-  });
-  const totalPrice = useMemo(() => {
-    return orderMenus.reduce((acc, cur) => {
-      const { menu, amount } = cur;
-      return acc + menu.price * amount;
-    }, 0);
-  }, [orderMenus]);
+  const totalPrice = orderList.reduce((acc, cur) => {
+    const { menuId, amount } = cur;
+    return acc + menus[menuId].price * amount;
+  }, 0);
 
   const handlePaymentButtonClick = () => {
     clearInterval(intervalRef.current!);
@@ -68,10 +59,11 @@ export default function Cart({
   return (
     <div className={styles.cart}>
       <div className={styles.orderItems}>
-        {orderMenus.map(order => {
-          const { menu, amount } = order;
+        {orderList.map((order, index) => {
+          const { menuId, amount } = order;
+          const menu = menus[menuId];
           return (
-            <div key={menu.menuId} className={styles.itemWrapper}>
+            <div key={index} className={styles.itemWrapper}>
               <div className={styles.amount}>{amount}</div>
               <MenuItem
                 classNames={[styles.orderItem]}

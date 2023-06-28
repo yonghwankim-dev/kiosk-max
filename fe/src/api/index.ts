@@ -28,7 +28,7 @@ export const requestCardOrder = async (
 ): Promise<OrderResult | undefined> => {
   const formattedOrderList = formatMenuOptionOrderList(orderList);
   const json = JSON.stringify({
-    orderItems: formattedOrderList,
+    orderProducts: formattedOrderList,
     totalPrice: totalPrice,
   });
   const option = {
