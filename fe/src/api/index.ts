@@ -56,6 +56,33 @@ export const fetchReceipt = async (orderId: number) => {
   }
 };
 
+export const requestCashOrder = async (
+  orderList: ProductOrder[],
+  totalPrice: number,
+  receivedPrice: number
+): Promise<OrderResult | undefined> => {
+  const formattedOrderList = formatMenuOptionOrderList(orderList);
+  const json = JSON.stringify({
+    orderProducts: formattedOrderList,
+    totalPrice: totalPrice,
+    receivedPrice: receivedPrice,
+  });
+  const option = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: json,
+  };
+
+  try {
+    const url = new URL('api/payment/cash', BASE_API_DOMAIN);
+    return await fetchJSON(url, option);
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 export const failCardOrder = async (
   orderList: ProductOrder[],
   totalPrice: number

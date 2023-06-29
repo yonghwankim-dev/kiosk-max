@@ -1,8 +1,9 @@
-import { requestCardOrder } from 'api';
+import { requestCardOrder, requestCashOrder } from 'api';
 import { LoadingIndicator } from 'components/LoadingIndicator/LoadingIndicator';
 import { ProductOrder } from 'pages/types';
 import { useRef, useState } from 'react';
 import useOutsideClick from '../../hooks/useOutsideClick';
+import CashPayment from './CashPayment';
 import modalStyles from './Modal.module.css';
 import styles from './PaymentModalContent.module.css';
 
@@ -19,8 +20,9 @@ export default function PaymentModalContent({
   navigate,
   orderList,
 }: PaymentModalContentProps) {
-  const paymentModal = useRef<HTMLDivElement>(null);
+  const outsideModal = useRef<HTMLDivElement>(null);
   const [paymentOption, setPaymentOption] = useState<'card' | 'cash' | 'select'>('select');
+  const [receivedPrice, setReceivedPrice] = useState<number>(0);
   const [loading, setLoading] = useState<boolean>(true);
   const [errorMessage, setErrorMessage] = useState<string>('');
 
@@ -53,10 +55,40 @@ export default function PaymentModalContent({
     }
   };
 
-  useOutsideClick(paymentModal, handlePaymentCancelButtonClick);
+  const handleCashPaymentClick = async () => {
+    const response = await requestCashOrder(orderList, totalPrice, receivedPrice);
+
+    if (!response) {
+      setErrorMessage('서버 에러: 잠시 후 결제를 다시 요청해주세요.');
+      return;
+    }
+
+    setLoading(false);
+    switch (response.errorCode.status) {
+      case 200: {
+        const orderId = response.data.orderId;
+        navigate(`/receipt/orderId/${orderId}`);
+        return;
+      }
+      case 400: {
+        setErrorMessage(response.errorCode.message);
+        return;
+      }
+      case 500: {
+        setErrorMessage('서버 에러: 잠시 후 결제를 다시 요청해주세요.');
+        return;
+      }
+    }
+  };
+
+  const payWithCash = (amount: number) => {
+    setReceivedPrice(receivedPrice + amount);
+  };
+
+  useOutsideClick(outsideModal, handlePaymentCancelButtonClick);
 
   return (
-    <div ref={paymentModal} className={modalStyles.dim}>
+    <div ref={outsideModal} className={modalStyles.dim}>
       {paymentOption === 'select' && (
         <div className={modalStyles.modalContent}>
           <button className={modalStyles.closeButton} onClick={handlePaymentCancelButtonClick}>
@@ -75,6 +107,15 @@ export default function PaymentModalContent({
             </button>
           </div>
         </div>
+      )}
+      {paymentOption === 'cash' && (
+        <CashPayment
+          totalPrice={totalPrice}
+          receivedPrice={receivedPrice}
+          payWithCash={payWithCash}
+          handlePaymentCancelButtonClick={handlePaymentCancelButtonClick}
+          handleCashPaymentClick={handleCashPaymentClick}
+        />
       )}
       {isCardPaymentOption && loading && <LoadingIndicator text="카드 결제중..." />}
       {errorMessage && <div className={styles.errorMessage}>{errorMessage}</div>}
