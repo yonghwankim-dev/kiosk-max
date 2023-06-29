@@ -1,16 +1,16 @@
-import styles from './Main.module.css';
+import styles from './MenuItem.module.css';
 
 interface MenuItemProps {
   productId: number;
   menuName: string;
   menuImg: string;
   menuPrice: number;
+  className?: string;
   isBest?: boolean;
   hasLarge?: boolean;
   hasSmall?: boolean;
   hasHot?: boolean;
   hasIce?: boolean;
-  classNames?: string[];
   openOrderModal?: () => void;
   setSelectedMenu?: any;
 }
@@ -25,9 +25,9 @@ export default function MenuItem({
   hasSmall,
   hasHot,
   hasIce,
+  className = styles.menuItem,
   openOrderModal,
   setSelectedMenu,
-  classNames = [],
 }: MenuItemProps) {
   const clickMenu = () => {
     setSelectedMenu &&
@@ -45,12 +45,7 @@ export default function MenuItem({
   };
 
   return (
-    <div
-      onClick={() => {
-        clickMenu();
-      }}
-      className={styles.menuItem + ' ' + classNames.join(' ')}
-    >
+    <div onClick={clickMenu} className={className}>
       {isBest && <div className={styles.best}>인기</div>}
       <img src={menuImg} alt={menuName} />
       <span>{menuName}</span>

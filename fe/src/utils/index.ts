@@ -25,8 +25,8 @@ export function formatSameProductIdList(orderList: ProductOrder[]) {
   const formattedOrderList: ProductOrder[] = [];
 
   orderList.forEach(order => {
-    const { productId, amount } = order;
-    const orderItem = formattedOrderList.find(item => item.productId === productId);
+    const { productId, size, amount } = order;
+    const orderItem = formattedOrderList.find(item => item.productId === productId && item.size === size);
     if (orderItem) {
       orderItem.amount += amount;
     } else {

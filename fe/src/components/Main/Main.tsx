@@ -1,10 +1,9 @@
+import MenuItem from 'components/MenuItem';
 import OrderModal from 'components/Modal/OrderModal';
 import { ProductInfo, ProductOrder } from 'pages/types';
 import { useRef, useState } from 'react';
 import useOutsideClick from '../../hooks/useOutsideClick';
-import ModalStyles from '../Modal/Modal.module.css';
 import styles from './Main.module.css';
-import MenuItem from './MenuItem';
 
 interface MainProps {
   handleAddOrder: (menuOrder: ProductOrder) => void;
@@ -40,7 +39,7 @@ export default function Main({ handleAddOrder, products }: MainProps) {
         />
       ))}
       {isOrderModalOpen && selectedMenu && (
-        <div ref={outsideModal} className={`${ModalStyles.dim} ${styles.mainDim}`}>
+        <div ref={outsideModal} className={styles.mainDim}>
           <OrderModal handleAddOrder={handleAddOrder} menu={selectedMenu} closeOrderModal={closeOrderModal} />
         </div>
       )}
