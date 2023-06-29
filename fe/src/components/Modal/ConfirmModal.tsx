@@ -1,4 +1,4 @@
-import Button from 'components/atoms/Button';
+import { Button } from 'components/atoms/Button';
 import styles from './ConfirmModal.module.css';
 import modalStyles from './Modal.module.css';
 import useOutsideClick from '../../hooks/useOutsideClick';

@@ -1,6 +1,6 @@
 import styles from './CashPayment.module.css';
 import modalStyles from './Modal.module.css';
-import Button from 'components/atoms/Button';
+import { Button } from 'components/atoms/Button';
 
 interface CashPaymentProps {
   totalPrice: number;
