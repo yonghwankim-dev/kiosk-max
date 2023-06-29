@@ -1,17 +1,18 @@
 import PaymentModalContent from 'components/Modal/PaymentModalContent';
+import { EXTRA_PRICE } from 'constant';
 import { ProductOrder, Products } from 'pages/types';
 import { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { formatSameProductIdList } from 'utils';
-import styles from './Main.module.css';
-import MenuItem from './MenuItem';
+import MenuItem from '../MenuItem/MenuItem';
+import styles from './Cart.module.css';
 
 interface CartProps {
   homeRef: React.RefObject<HTMLDivElement>;
   orderList: ProductOrder[];
   products: Products;
   navigate: (path: string) => void;
-  handleRemoveOrder: (productId: number) => void;
+  handleRemoveOrder: (productId: number, size: string) => void;
   handleRemoveAllOrders: () => void;
 }
 
@@ -29,8 +30,9 @@ export default function Cart({
 
   const formattedSameProduct = formatSameProductIdList(orderList);
   const totalPrice = orderList.reduce((acc, cur) => {
-    const { productId, amount } = cur;
-    return acc + products[productId].price * amount;
+    const { productId, size, amount } = cur;
+    const price = size === 'Large' ? products[productId].price + EXTRA_PRICE : products[productId].price;
+    return acc + price * amount;
   }, 0);
 
   const handlePaymentButtonClick = () => {
@@ -68,20 +70,20 @@ export default function Cart({
   return (
     <div className={styles.cart}>
       <div className={styles.orderItems}>
-        {formattedSameProduct.map(order => {
-          const { productId, amount } = order;
+        {formattedSameProduct.map((order, index) => {
+          const { productId, size, amount } = order;
           const menu = products[productId];
           return (
-            <div key={menu.productId} className={styles.itemWrapper}>
+            <div key={index} className={styles.itemWrapper}>
               <div className={styles.amount}>{amount}</div>
               <MenuItem
-                classNames={[styles.orderItem]}
+                className={styles.orderItem}
                 productId={menu.productId}
                 menuName={menu.name}
                 menuImg={menu.imgUrl}
-                menuPrice={menu.price}
+                menuPrice={size === 'Large' ? menu.price + EXTRA_PRICE : menu.price}
               />
-              <button className={styles.menuCancelButton} onClick={() => handleRemoveOrder(menu.productId)}>
+              <button className={styles.menuCancelButton} onClick={() => handleRemoveOrder(menu.productId, size)}>
                 X
               </button>
             </div>

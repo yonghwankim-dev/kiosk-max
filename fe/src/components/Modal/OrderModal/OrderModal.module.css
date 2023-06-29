@@ -13,16 +13,17 @@
 
 .contents {
   width: 80%;
+  gap: 1rem;
   display: flex;
 }
 
 .optionWrap {
   width: 100%;
+  height: 100%;
   display: flex;
-  gap: 10px;
   flex-direction: column;
   justify-content: center;
-  align-items: space-between;
+  gap: 1rem;
 }
 
 .dualButtonWrap {
@@ -33,9 +34,10 @@
 .singleButtonWrap {
   display: flex;
   justify-content: space-between;
-  > button {
-    width: 100%;
-  }
+}
+
+.singleButtonWrap > button {
+  width: 100%;
 }
 
 .optionButton {
@@ -57,8 +59,15 @@
 .counter {
   display: flex;
   width: 100%;
-  justify-content: center;
-  gap: 20px;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.counter > button {
+  width: 2rem;
+  height: 2rem;
+  border: 1px solid var(--color-primary);
+  border-radius: 50%;
 }
 
 .addButton {
@@ -75,4 +84,17 @@
   background-color: var(--color-gray-100);
   color: var(--color-gray-200);
   cursor: default;
+}
+
+.menuItem {
+  position: relative;
+  width: 18rem;
+  height: 18rem;
+  gap: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  border: 1px solid var(--color-gray-100);
 }

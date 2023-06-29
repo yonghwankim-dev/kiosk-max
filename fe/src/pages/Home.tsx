@@ -29,8 +29,8 @@ export default function Home({ navigate }: HomeProps) {
 
   const handleCategoryClick = (clickCategoryId: number) => setSelectedCategoryId(clickCategoryId);
   const handleAddOrder = (menuOrder: ProductOrder) => dispatch({ type: 'ADD_ORDER', payload: { newOrder: menuOrder } });
-  const handleRemoveOrder = (productId: number) =>
-    dispatch({ type: 'REMOVE_ORDER', payload: { productId: productId } });
+  const handleRemoveOrder = (productId: number, size: string) =>
+    dispatch({ type: 'REMOVE_ORDER', payload: { productId: productId, size: size } });
   const handleRemoveAllOrders = () => dispatch({ type: 'RESET' });
 
   useEffect(() => {
