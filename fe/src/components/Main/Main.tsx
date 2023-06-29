@@ -6,14 +6,16 @@ import useOutsideClick from '../../hooks/useOutsideClick';
 import styles from './Main.module.css';
 
 interface MainProps {
+  animationClassName: string;
   handleAddOrder: (menuOrder: ProductOrder) => void;
   products: ProductInfo[];
 }
 
-export default function Main({ handleAddOrder, products }: MainProps) {
+export default function Main({ animationClassName, handleAddOrder, products }: MainProps) {
   const outsideModal = useRef<HTMLDivElement>(null);
   const [isOrderModalOpen, setOrderModal] = useState<boolean>(false);
   const [selectedMenu, setSelectedMenu] = useState<ProductInfo | undefined>(undefined);
+  const mainRef = useRef<HTMLDivElement>(null);
 
   const openOrderModal = () => setOrderModal(true);
   const closeOrderModal = () => setOrderModal(false);
@@ -21,7 +23,7 @@ export default function Main({ handleAddOrder, products }: MainProps) {
   useOutsideClick(outsideModal, closeOrderModal);
 
   return (
-    <div className={styles.main}>
+    <div ref={mainRef} className={`${styles.main} ${animationClassName}`}>
       {products.map(menu => (
         <MenuItem
           key={menu.productId}

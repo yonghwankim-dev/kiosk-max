@@ -4,6 +4,7 @@
   display: flex;
   justify-content: space-around;
   border-bottom: 2px solid var(--color-primary);
+  z-index: 1;
 }
 
 .categoryButton {

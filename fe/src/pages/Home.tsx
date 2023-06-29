@@ -18,6 +18,7 @@ export default function Home({ navigate }: HomeProps) {
   const [products, loading, error] = useProducts();
   const [orderList, dispatch] = useReducer(menuOrderReducer, []);
   const homeRef = useRef<HTMLDivElement>(null);
+  const [mainAnimationClassName, setMainAnimationClassName] = useState<string>(styles.fadeEnter);
 
   const categoryNavbarInfo = products.map((category: CategoryInfo) => {
     return { categoryId: category.categoryId, categoryName: category.categoryName };
@@ -27,11 +28,19 @@ export default function Home({ navigate }: HomeProps) {
   const currentMenus = selectedCategoryId && formattedMenuData[selectedCategoryId];
   const isOrderListEmpty = orderList.length === 0;
 
-  const handleCategoryClick = (clickCategoryId: number) => setSelectedCategoryId(clickCategoryId);
   const handleAddOrder = (menuOrder: ProductOrder) => dispatch({ type: 'ADD_ORDER', payload: { newOrder: menuOrder } });
   const handleRemoveOrder = (productId: number, size: string) =>
     dispatch({ type: 'REMOVE_ORDER', payload: { productId: productId, size: size } });
   const handleRemoveAllOrders = () => dispatch({ type: 'RESET' });
+  const handleCategoryClick = (clickCategoryId: number) => {
+    if (clickCategoryId === selectedCategoryId) return;
+    setMainAnimationClassName(styles.fadeLeave);
+
+    setTimeout(() => {
+      setMainAnimationClassName(styles.fadeEnter);
+      setSelectedCategoryId(clickCategoryId);
+    }, 500);
+  };
 
   useEffect(() => {
     if (!loading) {
@@ -49,7 +58,13 @@ export default function Home({ navigate }: HomeProps) {
         categories={categoryNavbarInfo}
         handleCategoryClick={handleCategoryClick}
       />
-      {currentMenus && <Main handleAddOrder={handleAddOrder} products={currentMenus.products} />}
+      {currentMenus && (
+        <Main
+          animationClassName={mainAnimationClassName}
+          handleAddOrder={handleAddOrder}
+          products={currentMenus.products}
+        />
+      )}
       {!isOrderListEmpty && (
         <Cart
           navigate={navigate}
