@@ -1,6 +1,6 @@
 import MenuItem from 'components/MenuItem/MenuItem';
 import ModalStyles from 'components/Modal/Modal.module.css';
-import Button from 'components/atoms/Button';
+import { Button } from 'components/atoms/Button';
 import { EXTRA_PRICE } from 'constant';
 import { ProductInfo, ProductOrder } from 'pages/types';
 import { useState } from 'react';

@@ -1,4 +1,4 @@
-import Button from 'components/atoms/Button';
+import { Button, ImgButton } from 'components/atoms/Button';
 import styles from './OrderModal.module.css';
 
 interface MenuOptionProps extends SizeOptionProps, TempOptionProps, AmountCounterProps {
@@ -39,13 +39,13 @@ export default function MenuOption({
 }: MenuOptionProps) {
   return (
     <div className={styles.optionWrap}>
+      <TempOption hasHot={hasHot} hasIce={hasIce} selectedTemp={selectedTemp} setSelectedTemp={setSelectedTemp} />
       <SizeOption
         hasSmall={hasSmall}
         hasLarge={hasLarge}
         selectedSize={selectedSize}
         setSelectedSize={setSelectedSize}
       />
-      <TempOption hasHot={hasHot} hasIce={hasIce} selectedTemp={selectedTemp} setSelectedTemp={setSelectedTemp} />
       <AmountCounter amount={amount} setAmount={setAmount} />
     </div>
   );
@@ -55,20 +55,24 @@ function SizeOption({ hasSmall, hasLarge, selectedSize, setSelectedSize }: SizeO
   return (
     <div className={hasSmall && hasLarge ? styles.dualButtonWrap : styles.singleButtonWrap}>
       {hasSmall && (
-        <Button
+        <ImgButton
           label={'Small'}
-          className={styles.optionButton}
+          className={styles.smallOptionButton}
           isSelected={selectedSize === 'Small'}
-          selectedClassName={styles.selected}
+          selectedClassName={styles.selectedSize}
+          imgSrc="assets/icon/drink.png"
+          imgAlt=""
           onClick={() => setSelectedSize('Small')}
         />
       )}
       {hasLarge && (
-        <Button
+        <ImgButton
           label={'Large'}
-          className={styles.optionButton}
+          className={styles.largeOptionButton}
           isSelected={selectedSize === 'Large'}
-          selectedClassName={styles.selected}
+          selectedClassName={styles.selectedSize}
+          imgSrc="assets/icon/drink.png"
+          imgAlt=""
           onClick={() => setSelectedSize('Large')}
         />
       )}
@@ -84,7 +88,7 @@ function TempOption({ hasHot, hasIce, selectedTemp, setSelectedTemp }: TempOptio
           label={'Hot'}
           className={styles.optionButton}
           isSelected={selectedTemp === 'Hot'}
-          selectedClassName={styles.selected}
+          selectedClassName={styles.selectedHot}
           onClick={() => setSelectedTemp('Hot')}
         />
       )}
@@ -93,7 +97,7 @@ function TempOption({ hasHot, hasIce, selectedTemp, setSelectedTemp }: TempOptio
           label={'Ice'}
           className={styles.optionButton}
           isSelected={selectedTemp === 'Ice'}
-          selectedClassName={styles.selected}
+          selectedClassName={styles.selectedIce}
           onClick={() => setSelectedTemp('Ice')}
         />
       )}
