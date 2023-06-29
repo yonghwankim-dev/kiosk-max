@@ -2,10 +2,12 @@ import { OrderSuccessInfo } from '../../pages/types';
 import { calculateTotalAmount } from '../../utils';
 import styles from './Receipt.module.css';
 
-export default function Receipt({ data }: { data: OrderSuccessInfo }) {
-  const paymentMethod = data.payment.method === 'cash' ? '현금' : '카드';
-  const isCashPayment = data.payment.method === 'cash';
-  const calculatedAmount = calculateTotalAmount(data);
+export default function Receipt({ info }: { info: OrderSuccessInfo }) {
+  const { orders, orderProducts, payment } = info;
+
+  const paymentMethod = payment.method === 'cash' ? '현금' : '카드';
+  const isCashPayment = payment.method === 'cash';
+  const calculatedAmount = calculateTotalAmount(orderProducts);
   const keys = Object.keys(calculatedAmount);
   const mappedArray = keys.map(key => ({
     name: key,
@@ -14,8 +16,8 @@ export default function Receipt({ data }: { data: OrderSuccessInfo }) {
 
   return (
     <div className={styles.receiptWrap}>
-      <h1 className={styles.orderNumber}>{`주문번호 ${data.orderNumber}`}</h1>
-      <span className={styles.orderTime}>{`${data.payment.orderDatetime}`}</span>
+      <h1 className={styles.orderNumber}>{`주문번호 ${orders.orderNumber}`}</h1>
+      <span className={styles.orderTime}>{`${orders.orderDatetime}`}</span>
       <div className={styles.orderLists}>
         {mappedArray.map((list: OrderListProps, index: number) => {
           return <OrderList key={index} list={list} />;
@@ -23,9 +25,9 @@ export default function Receipt({ data }: { data: OrderSuccessInfo }) {
       </div>
       <div className={styles.paymentInfo}>
         <span>{`결제방식: ${paymentMethod}`}</span>
-        {isCashPayment && <span>{`투입금액: ${data.payment.receivedPrice}`}</span>}
-        <span>{`총 결제금액: ${data.payment.totalPrice}`}</span>
-        {isCashPayment && <span>{`거스름돈: ${data.payment.remainedPrice}`}</span>}
+        {isCashPayment && <span>{`투입금액: ${payment.receivedPrice}`}</span>}
+        <span>{`총 결제금액: ${payment.totalPrice}`}</span>
+        {isCashPayment && <span>{`거스름돈: ${payment.remainedPrice}`}</span>}
       </div>
     </div>
   );

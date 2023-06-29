@@ -35,21 +35,18 @@ export interface ProductOrder {
   amount: number;
 }
 
-interface OrderList {
-  orderItems: ProductOrder[];
-  totalPrice: number;
-}
-
 export interface OrderSuccessInfo {
-  orderId: number;
-  orderNumber: number;
+  orders: {
+    orderId: number;
+    orderNumber: number;
+    orderDatetime: string;
+  };
   orderProducts: OrderItem[];
   payment: {
     method: string;
     totalPrice: number;
     receivedPrice: number;
     remainedPrice: number;
-    orderDatetime: string;
   };
 }
 
