@@ -79,9 +79,9 @@
 
 ## 🗂️ WIKI 문서
 ### 🤝 협업 전략
-- [그라운드 룰]()
-- [커밋 컨밴션]()
-- [브랜치 전략]()
+- [그라운드 룰](https://github.com/codesquad-gwanaksan/kiosk-max/wiki/%EA%B7%B8%EB%9D%BC%EC%9A%B4%EB%93%9C-%EB%A3%B0)
+- [커밋 컨밴션](https://github.com/codesquad-gwanaksan/kiosk-max/wiki/%EC%BB%A4%EB%B0%8B-%EC%BB%A8%EB%B0%B4%EC%85%98)
+- [브랜치 전략](https://github.com/codesquad-gwanaksan/kiosk-max/wiki/%EB%B8%8C%EB%9E%9C%EC%B9%98-%EC%A0%84%EB%9E%B5)
 
 ### 🔥 Trouble Shooting
 - [Infra](https://github.com/codesquad-gwanaksan/kiosk-max/wiki/Infra)
