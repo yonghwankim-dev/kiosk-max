@@ -1,7 +1,7 @@
-import { CategoryInfo, OrderResult, ProductOrder } from 'pages/types';
+import { CategoryInfo, OrderResult, OrderSuccessInfo, ProductOrder } from 'pages/types';
 import { formatMenuOptionOrderList } from 'utils';
 
-const BASE_API_DOMAIN = new URL(`https://59e962f7-9105-47c3-9543-c5b5b596f0e7.mock.pstmn.io`);
+const BASE_API_DOMAIN = process.env.REACT_APP_BASE_API_DOMAIN;
 
 const fetchJSON = async (url: URL, option?: {}) => {
   const response = await fetch(url, option);
@@ -47,7 +47,7 @@ export const requestCardOrder = async (
   }
 };
 
-export const fetchReceipt = async (orderId: number) => {
+export const fetchReceipt = async (orderId: number): Promise<OrderSuccessInfo | undefined> => {
   try {
     const url = new URL(`api/receipt?orderId=${orderId}`, BASE_API_DOMAIN);
     return await fetchJSON(url);
