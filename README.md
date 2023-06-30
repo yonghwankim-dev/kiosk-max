@@ -15,10 +15,11 @@
 | <a href="https://github.com/qkdflrgs"><img src = "https://avatars.githubusercontent.com/qkdflrgs" width="120px;"> | <a href="https://github.com/youzysu"><img src = "https://avatars.githubusercontent.com/youzysu" width="120px;">  | <a href="https://github.com/jinny-l"><img src = "https://avatars.githubusercontent.com/jinny-l" width="120px;"> | <a href="https://github.com/won4885"><img src = "https://avatars.githubusercontent.com/won4885" width="120px;"> | <a href="https://github.com/HyowonSin"><img src = "https://avatars.githubusercontent.com/HyowonSin" width="120px;"> | <a href="https://github.com/yonghwankim-dev"><img src = "https://avatars.githubusercontent.com/yonghwankim-dev" width="120px;"> |                                         |                                         |
 |                                     [**litae**](https://github.com/qkdflrgs)                                      |                                       [**조이**](https://github.com/youzysu)                                       |                                     [**Jinny**](https://github.com/jinny-l)                                     |                                     [**Sully**](https://github.com/won4885)                                     |                                      [**TOMMY**](https://github.com/HyowonSin)                                      |                                         [**네모네모**](https://github.com/yonghwankim-dev)                                          |
 
-<br/>
 
 ## 🖥️ 동작 화면
-- GIF 추가 예정
+<img src="https://github.com/codesquad-gwanaksan/kiosk-max/assets/108214590/9ef7074c-3140-40f0-80a3-bb563203fbb1" width="50%">
+
+<br/>
 
 <br/>
 
