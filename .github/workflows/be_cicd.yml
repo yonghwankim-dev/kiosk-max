@@ -26,6 +26,7 @@ jobs:
       # application-prod.properties 파일을 생성하여 설정
       - name: make application-prod.properties
         run: |
+          pwd
           cd ./src/main/resources
           touch ./application-prod.properties
           echo "${{ secrets.APPLICATION_PROD }}" > ./application-prod.properties
