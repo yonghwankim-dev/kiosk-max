@@ -9,12 +9,14 @@ on:
 permissions:
   contents: read
 
-env:
-  working-directory: ./be
-
 jobs:
   build-image:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+        working-directory: ./be
+            
     steps:
       - uses: actions/checkout@v3
       ## JDK 설정
@@ -26,8 +28,7 @@ jobs:
       # application-prod.properties 파일을 생성하여 설정
       - name: make application-prod.properties
         run: |
-          pwd
-          cd ./src/main/resources
+          cd ./be/src/main/resources
           touch ./application-prod.properties
           echo "${{ secrets.APPLICATION_PROD }}" > ./application-prod.properties
           ls -l
