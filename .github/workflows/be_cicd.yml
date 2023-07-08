@@ -62,10 +62,8 @@ jobs:
           mkdir -p ./db/mysql/initdb.d
           touch ./db/mysql/conf.d/my.cnf
           touch ./db/mysql/initdb.d/init.sql
-          touch ./db/mysql/initdb.d/data.sql
           echo "${{ secrets.MYSQL_CNF }}" > ./db/mysql/conf.d/my.cnf
           echo "${{ secrets.MYSQL_INIT }}" > ./db/mysql/initdb.d/init.sql
-          echo "${{ secrets.MYSQL_DATA }}" > ./db/mysql/initdb.d/data.sql
       # .env 파일을 생성하여 설정
       - name: make .env
         run: |
