@@ -9,17 +9,26 @@ services:
       - 8080:8080
     volumes:
       - kiosk_app:/app
+    environment:
+      spring.datasource.driverClassName: com.mysql.cj.jdbc.Driver
+      spring.datasource.url: jdbc:mysql://${MYSQL_HOST}:${MYSQL_PORT}/${MYSQL_DATABASE}?useSSL=false&allowPublicKeyRetrieval=true
+      spring.datasource.username: ${MYSQL_USERNAME}
+      spring.datasource.password: ${MYSQL_USER_PASSWORD}
+    env_file:
+      - .env
   db:
     container_name: kiosk_db
     image: mysql
     ports:
       - 3306:3306
     environment:
-      MYSQL_ROOT_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_USER_PASSWORD}
       MYSQL_DATABASE: ${MYSQL_DATABASE}
       TZ: Asia/Seoul
     volumes:
       - ./db/mysql/conf.d:/etc/mysql/conf.d
       - ./db/mysql/initdb.d:/docker-entrypoint-initdb.d
+    env_file:
+      - .env
 volumes:
   kiosk_app:
