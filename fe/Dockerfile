@@ -10,5 +10,6 @@ COPY ./package.json /package.json
 RUN npm install --production
 
 COPY . .
+RUN npm run build
 
 CMD ["yarn", "start"]
