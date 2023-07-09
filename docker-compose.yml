@@ -23,8 +23,9 @@ services:
       - db
     ports:
       - 3000:3000
-    command:
-      - yarn start
+    volumes:
+      - /app/node_modules
+      - ./fe:/app
   db:
     container_name: kiosk_db
     image: mysql
