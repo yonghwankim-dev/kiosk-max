@@ -5,7 +5,7 @@ ENV NODE_ENV=production
 
 WORKDIR /app/fe
 
-COPY ["package.json", "./app/fe"]
+COPY ["package.json", "./"]
 
 RUN npm install --production
 
