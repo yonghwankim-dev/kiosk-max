@@ -20,10 +20,10 @@ services:
     container_name: kiosk_web
     image: yhkim951107/kiosk_web:latest
     ports:
-      - 8000:8000
+      - 3000:3000
     volumes:
-      - ./:/app
-      - /app/node_modules
+      - ./fe:/app/fe
+      - /app/fe/node_modules
     env_file:
       - .env
   db:

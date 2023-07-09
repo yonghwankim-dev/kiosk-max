@@ -3,9 +3,9 @@
 FROM node:18-alpine
 ENV NODE_ENV=production
 
-WORKDIR /app
+WORKDIR /app/fe
 
-COPY ["package.json", "./"]
+COPY ["package.json", "./app/fe"]
 
 RUN npm install --production
 
