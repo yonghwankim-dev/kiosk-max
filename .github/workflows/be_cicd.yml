@@ -71,7 +71,9 @@ jobs:
           docker push ${{ secrets.DOCKER_USERNAME }}/kiosk_web:latest
 
   cd-pipeline:
-    needs: build-image
+    needs:
+      - build-image
+      - build-react-image
     name: continuos deploy
     runs-on: ubuntu-latest
     environment: prod
