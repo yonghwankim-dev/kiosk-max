@@ -19,11 +19,13 @@ services:
   web:
     container_name: kiosk_web
     image: yhkim951107/kiosk_web:latest
+    depends_on:
+      - db
     ports:
       - 3000:3000
     volumes:
-      - ./fe:/app/fe
-      - /app/fe/node_modules
+      - ./fe:/app
+      - /app/node_modules
     env_file:
       - .env
   db:
