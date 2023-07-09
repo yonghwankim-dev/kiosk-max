@@ -48,6 +48,36 @@ jobs:
           docker build -t app .
           docker tag app ${{ secrets.DOCKER_USERNAME}}/kiosk_app:latest
           docker push ${{ secrets.DOCKER_USERNAME }}/kiosk_app:latest
+
+  build-react-image:
+    runs-on: ubuntu-latest
+    environment: prod
+    defaults:
+      run:
+        shell: bash
+        working-directory: ./fe
+    strategy:
+      matrix:
+        node-version: [ 18.x ]
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - run: npm ci
+      - run: npm run build --if-present
+      - run: npm test
+
+      - name: Docker build
+        run: |
+          echo "${{ secrets.DOCKER_USERNAME }}"
+          echo "${{ secrets.DOCKER_PASSWORD }}"
+          docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+          docker build -t app .
+          docker tag app ${{ secrets.DOCKER_USERNAME}}/kiosk_web:latest
+          docker push ${{ secrets.DOCKER_USERNAME }}/kiosk_web:latest
+
   cd-pipeline:
     needs: build-image
     name: continuos deploy

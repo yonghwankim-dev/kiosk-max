@@ -16,6 +16,16 @@ services:
       spring.datasource.password: ${MYSQL_USER_PASSWORD}
     env_file:
       - .env
+  web:
+    container_name: kiosk_web
+    image: yhkim951107/kiosk_web:latest
+    ports:
+      - 8000:8000
+    volumes:
+      - ./:/app
+      - /app/node_modules
+    env_file:
+      - .env
   db:
     container_name: kiosk_db
     image: mysql
