@@ -3,13 +3,12 @@
 FROM node:18-alpine
 ENV NODE_ENV=production
 
-WORKDIR /app
+WORKDIR /app/fe
 
-COPY ./package.json /package.json
+COPY ./package.json ./
 
-RUN npm install --production
+RUN npm install
 
-COPY . .
-RUN npm run build
+COPY . ./
 
-CMD ["yarn", "start"]
+EXPOSE 3000
